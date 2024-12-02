@@ -18,5 +18,4 @@ model User {
  email   String  @unique
  nom    String
  password String
- annonces Annonce[]
 }
