@@ -1,5 +1,4 @@
 import { Router } from "express";
-//import { prisma } from "..";
 import { createUser, deleteUser, getAllUsers, getUserById, updateUser } from "../controllers/usersController";
 
 const usersRouter: Router = Router();
