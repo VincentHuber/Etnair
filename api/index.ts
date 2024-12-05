@@ -18,7 +18,7 @@ app.use("/ads", adsRouter);
 app.use("/booking", bookRouter);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("hello").status(200);
+  res.send("HELLO").status(200);
 });
 
 app.listen(port, () => {
