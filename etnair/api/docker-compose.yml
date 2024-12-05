@@ -31,4 +31,3 @@ volumes:
 
 networks:
   etnair_network:
-  
