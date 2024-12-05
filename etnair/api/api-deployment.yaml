@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etnair-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: etnair-api
+  template:
+    metadata:
+      labels:
+        app: etnair-api
+    spec:
+      containers:
+      - name: etnair-api
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: etnair-api
+spec:
+  type: ClusterIP
+  selector:
+    app: etnair-api
+  ports:
+  - port: 8080
+    targetPort: 8080
