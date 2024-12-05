@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 
 const userPrisma = new PrismaClient().user;
@@ -15,7 +16,7 @@ export const getAllUsers = async (req: any, res: any) => {
 };
 
 //getUserById
-export const getUserById = async (req: any, res: any) => {
+export const getUserById = async (req: Request, res: Response) => {
   try {
     const userId = req.params.id
     const allUser = await userPrisma.findUnique({
@@ -30,7 +31,7 @@ export const getUserById = async (req: any, res: any) => {
 };
 
 //createUser
-export const createUser = async (req: any, res: any) => {
+export const createUser = async (req: Request, res: Response) => {
   try {
     const userData = req.body;
     const allUser = await userPrisma.create({
@@ -43,7 +44,7 @@ export const createUser = async (req: any, res: any) => {
 };
 
 //updateUser
-export const updateUser = async (req: any, res: any) => {
+export const updateUser = async (req: Request, res: Response) => {
   try {
     const userId = req.params.id
     const userData = req.body;
@@ -61,7 +62,7 @@ export const updateUser = async (req: any, res: any) => {
 };
 
 //deleteUser
-export const deleteUser = async (req: any, res: any) => {
+export const deleteUser = async (req: Request, res: Response) => {
   try {
     const userId = req.params.id
     const allUser = await userPrisma.delete({
