@@ -1,9 +1,10 @@
+import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 
 const bookPrisma = new PrismaClient().bookings;
 
 //getAllBooking
-export const getAllBook = async (req: any, res: any) => {
+export const getAllBook = async (req: Request, res: Response) => {
   try {
     const allBook = await bookPrisma.findMany({
 
@@ -15,7 +16,7 @@ export const getAllBook = async (req: any, res: any) => {
 };
 
 //getBookingById
-export const getBookById = async (req: any, res: any) => {
+export const getBookById = async (req: Request, res: Response) => {
   try {
     const bookId = req.params.id
     const allBook = await bookPrisma.findUnique({
@@ -30,7 +31,7 @@ export const getBookById = async (req: any, res: any) => {
 };
 
 //createBooking
-export const createBook = async (req: any, res: any) => {
+export const createBook = async (req: Request, res: Response) => {
   try {
     const bookData = req.body;
     const allBook = await bookPrisma.create({
@@ -43,7 +44,7 @@ export const createBook = async (req: any, res: any) => {
 };
 
 //updateBooking
-export const updateBook = async (req: any, res: any) => {
+export const updateBook = async (req: Request, res: Response) => {
   try {
     const bookId = req.params.id
     const bookData = req.body;
@@ -61,7 +62,7 @@ export const updateBook = async (req: any, res: any) => {
 };
 
 //deleteBooking
-export const deleteBook = async (req: any, res: any) => {
+export const deleteBook = async (req: Request, res: Response) => {
   try {
     const bookId = req.params.id
     const allBook = await bookPrisma.delete({

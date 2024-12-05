@@ -15,17 +15,18 @@ datasource db {
 
 model User {
  id    Int   @id @default(autoincrement())
- name String 
+ nickname String @unique 
  email String @unique
  password String
  created_at DateTime @default(now())
-
-
+ host_arrived Boolean
 }
 
 model Ads {
   id    Int   @id @default(autoincrement())
   title String
+  renter User @relation("nickname", fields: [renterId], references: [id])
+  renterId Int 
   description String
   location String
   nightly_price Int

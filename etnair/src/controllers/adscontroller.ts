@@ -1,9 +1,10 @@
+import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 
 const adsPrisma = new PrismaClient().ads;
 
 //getAllAds
-export const getAllAds = async (req: any, res: any) => {
+export const getAllAds = async (req: Request, res: Response) => {
   try {
     const allAds = await adsPrisma.findMany({
 
@@ -15,7 +16,7 @@ export const getAllAds = async (req: any, res: any) => {
 };
 
 //getAdsById
-export const getAdsById = async (req: any, res: any) => {
+export const getAdsById = async (req: Request, res: Response) => {
   try {
     const adsId = req.params.id
     const allAds = await adsPrisma.findUnique({
@@ -30,7 +31,7 @@ export const getAdsById = async (req: any, res: any) => {
 };
 
 //createAds
-export const createAds = async (req: any, res: any) => {
+export const createAds = async (req: Request, res: Response) => {
   try {
     const adsData = req.body;
     const allAds = await adsPrisma.create({
@@ -43,7 +44,7 @@ export const createAds = async (req: any, res: any) => {
 };
 
 //updateAds
-export const updateAds = async (req: any, res: any) => {
+export const updateAds = async (req: Request, res: Response) => {
   try {
     const adsId = req.params.id
     const adsData = req.body;
@@ -61,7 +62,7 @@ export const updateAds = async (req: any, res: any) => {
 };
 
 //deleteAds
-export const deleteAds = async (req: any, res: any) => {
+export const deleteAds = async (req: Request, res: Response) => {
   try {
     const adsId = req.params.id
     const allAds = await adsPrisma.delete({
