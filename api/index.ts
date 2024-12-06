@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
-import adsRouter from "./routes/adscontroller";
-import bookRouter from "./routes/bookingcontroller";
+import adsRouter from "./routes/adsRouter";
+import bookRouter from "./routes/bookingRouter";
 import usersRouter from "./routes/usersRouter";
 
 // Charge la variable d'environnement
