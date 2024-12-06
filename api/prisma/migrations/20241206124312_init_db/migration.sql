@@ -1,12 +1,13 @@
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
-    "token" INTEGER NOT NULL,
+    "token" TEXT NOT NULL,
     "nickname" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "profilePicture" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "host_arrived" BOOLEAN NOT NULL,
+    "host_arrived" BOOLEAN,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
