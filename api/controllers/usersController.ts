@@ -31,6 +31,7 @@ export const getUserById = async (req: Request, res: Response) => {
   }
 };
 
+
 // Route Signup
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -75,8 +76,15 @@ export const createUser = async (req: Request, res: Response) => {
       },
     });
 
-    res.status(201).json({ data: newUser });
-  } catch (error) {
+    res.status(201).json({ 
+      data: { 
+          nickname: newUser.nickname, 
+          email: newUser.email, 
+          profilePicture: newUser.profilePicture, 
+          token: newUser.token 
+      } 
+  });
+    } catch (error) {
     console.error("Erreur inconnue ou non capturée", error);
     res.status(500).json({ result: false, error: "Erreur interne du serveur" });
   }
