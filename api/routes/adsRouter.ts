@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createAds, deleteAds, getAdsById, getAllAds, updateAds } from "../controllers/adscontroller";
+import { createAds, deleteAds, getAdsById, getAllAds, updateAds } from "../controllers/adsController";
 const adsRouter: Router = Router();
 
 adsRouter.get("/", getAllAds);
