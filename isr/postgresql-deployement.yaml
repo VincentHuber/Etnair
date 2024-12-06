@@ -34,6 +34,6 @@ spec:
     app: postgresql
   ports:
     - protocol: TCP
-      port: 5432
-      targetPort: 5432
+      port: 80
+      targetPort: 3000
   type: ClusterIP
