@@ -6,8 +6,8 @@ const uid2 = require("uid2");
 
 const userPrisma = new PrismaClient().user;
 
-//getAllUsers
-export const getAllUsers = async (req: Request, res: Response) => {
+//Route pour trouver les infos d'un seul user
+export const getUserByToken = async (req: Request, res: Response) => {
   try {
     const allUser = await userPrisma.findMany({});
     res.status(200).json({ data: allUser });
@@ -16,31 +16,16 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-//getUserById
-export const getUserById = async (req: Request, res: Response) => {
-  try {
-    const userId = req.params.id;
-    const allUser = await userPrisma.findUnique({
-      where: {
-        id: parseInt(userId),
-      },
-    });
-    res.status(200).json({ data: allUser });
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-
-// Route Signup
+// Route pour s'inscrire
 export const createUser = async (req: Request, res: Response) => {
   try {
-
     console.log("body:", req.body);
+
     //Verifie si les champs sont vides
-    // if (!req.body.nickname || !req.body.email || !req.body.password) {
-    //   return res.status(400).json({ error: "Un des champs est manquant ou vide" });
-    // }
+    if (!req.body.email || !req.body.password) {
+      res.status(400).json({ error: "Email et mot de passe sont requis" });
+      return;
+    }
 
     // Vérifie si l'email/Nickname existe déjà
     // const existingUser = await userPrisma.findFirst({
@@ -76,49 +61,99 @@ export const createUser = async (req: Request, res: Response) => {
       },
     });
 
-    res.status(201).json({ 
-      data: { 
-          nickname: newUser.nickname, 
-          email: newUser.email, 
-          profilePicture: newUser.profilePicture, 
-          token: newUser.token 
-      } 
-  });
-    } catch (error) {
-    console.error("Erreur inconnue ou non capturée", error);
-    res.status(500).json({ result: false, error: "Erreur interne du serveur" });
+    res.status(201).json({
+      data: {
+        nickname: newUser.nickname,
+        email: newUser.email,
+        profilePicture: newUser.profilePicture,
+        token: newUser.token,
+      },
+    });
+  } catch (error) {
+    console.error("Erreur lors de l'inscription :", error);
   }
 };
 
-//updateUser
+// Route pour se connecter
+export const authenticateUser = async (req: Request, res: Response) => {
+  try {
+    // Vérifie si les champs sont vides
+    if (!req.body.email || !req.body.password) {
+      res.status(400).json({ error: "Email et mot de passe sont requis" });
+      return;
+    }
+
+    // Recherche de l'utilisateur par email
+    const existingUser = await userPrisma.findFirst({
+      where: { email: req.body.email },
+    });
+
+    // Vérifie si l'utilisateur existe
+    if (!existingUser) {
+      res.status(404).json({ error: "Utilisateur non trouvé" });
+      return;
+    }
+
+    // Vérifie si le mot de passe est correct
+    const isPasswordValid = bcrypt.compareSync(
+      req.body.password,
+      existingUser.password
+    );
+    if (!isPasswordValid) {
+      res.status(401).json({ error: "Mot de passe incorrect" });
+      return;
+    }
+
+    // Retourne les informations si tout est valide
+    res.status(200).json({
+      result: true,
+      email: existingUser.email,
+      token: existingUser.token,
+      nickname: existingUser.nickname,
+    });
+  } catch (error) {
+    console.error("Erreur lors de la connexion :", error);
+  }
+};
+
+// Route pour mettre à jour son profil
 export const updateUser = async (req: Request, res: Response) => {
   try {
-    const userId = req.params.id;
-    const userData = req.body;
-    const allUser = await userPrisma.update({
+    const updatedUser = await userPrisma.update({
       where: {
-        id: parseInt(userId),
+        token: req.params.token,
       },
-      data: userData,
+      data: {
+        nickname: req.body.nickname,
+        email: req.body.email,
+        profilePicture: req.body.profilePicture,
+      },
     });
 
-    res.status(200).json({ data: allUser });
-  } catch (e) {
-    console.log(e);
+    res
+      .status(200)
+      .json({
+        data: {
+          nickname: updatedUser.nickname,
+          email: updatedUser.email,
+          profilePicture: updatedUser.profilePicture,
+        },
+      });
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour du profil :", error);
   }
 };
 
-//deleteUser
+// Router pour supprimer son profil
 export const deleteUser = async (req: Request, res: Response) => {
   try {
-    const userId = req.params.id;
-    const allUser = await userPrisma.delete({
+    await userPrisma.delete({
       where: {
-        id: parseInt(userId),
+        token: req.params.token,
       },
     });
-    res.status(200).json({ data: {} });
-  } catch (e) {
-    console.log(e);
+    res.status(200).json({ message: "Utilisateur supprimé avec succès" });
+  } catch (error) {
+    console.error("Erreur lors de la suppression de l'utilisateur:", error);
   }
 };
