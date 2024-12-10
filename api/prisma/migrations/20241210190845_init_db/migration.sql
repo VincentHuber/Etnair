@@ -1,12 +1,12 @@
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
-    "token" INTEGER NOT NULL,
     "nickname" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "profilePicture" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "host_arrived" BOOLEAN NOT NULL,
+    "host_arrived" BOOLEAN,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -15,7 +15,7 @@ CREATE TABLE "User" (
 CREATE TABLE "Ads" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
-    "renterId" INTEGER NOT NULL,
+    "renterName" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "location" TEXT NOT NULL,
     "nightly_price" INTEGER NOT NULL,
@@ -38,16 +38,13 @@ CREATE TABLE "Bookings" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_token_key" ON "User"("token");
-
--- CreateIndex
 CREATE UNIQUE INDEX "User_nickname_key" ON "User"("nickname");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
-ALTER TABLE "Ads" ADD CONSTRAINT "Ads_renterId_fkey" FOREIGN KEY ("renterId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Ads" ADD CONSTRAINT "Ads_renterName_fkey" FOREIGN KEY ("renterName") REFERENCES "User"("nickname") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Bookings" ADD CONSTRAINT "Bookings_adsId_fkey" FOREIGN KEY ("adsId") REFERENCES "Ads"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

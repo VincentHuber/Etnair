@@ -4,7 +4,7 @@ const adsRouter: Router = Router();
 
 adsRouter.get("/", getAllAds);
 adsRouter.get("/:id", getAdsById);
-adsRouter.post("/", createAds);
+adsRouter.post("/:nickname/ad", createAds);
 adsRouter.put("/:id", updateAds);
 adsRouter.delete("/:id", deleteAds);
 

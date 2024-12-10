@@ -21,15 +21,15 @@ model User {
   profilePicture String
   created_at     DateTime   @default(now())
   host_arrived   Boolean?
-  ads            Ads[]      @relation("UserAds")
+  ads            Ads[] 
   bookings       Bookings[] @relation("UserBookings")
 }
 
 model Ads {
   id            Int        @id @default(autoincrement())
   title         String
-  renter        User       @relation("UserAds", fields: [renterId], references: [id])
-  renterId      Int
+  renter        User       @relation(fields: [renterName], references: [nickname])
+  renterName    String        //foreigne key
   description   String
   location      String
   nightly_price Int
