@@ -10,8 +10,8 @@ export const getAllAds = async (req: Request, res: Response) => {
 
     })
     res.status(200).json({ data: allAds });
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    console.log(error)
     res.status(500).json({ error: "error" });
   }
 };
@@ -30,8 +30,8 @@ export const getAdsById = async (req: Request, res: Response) => {
       }
     })
     res.status(200).json({ data: allAds });
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    console.log(error)
     res.status(500).json({ error: "error" });
   }
 };
@@ -88,8 +88,8 @@ export const updateAds = async (req: Request, res: Response) => {
     });
 
     res.status(200).json({ data: allAds });
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    console.log(error)
     res.status(500).json({ error: "error" });
   }
 };
@@ -108,8 +108,8 @@ export const deleteAds = async (req: Request, res: Response) => {
       }
     });
     res.status(200).json({ message: "ads deleted" });
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "error" });
   }
 }

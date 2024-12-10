@@ -24,7 +24,7 @@ export const getUserById = async (req: Request, res: Response) => {
   const userId = req.params.id
   try {
     if (!req.body.id) {
-      res.status(400).json({ error: "id requis in param" });
+      res.status(400).json({ error: "id not found" });
       return;
     }
 
@@ -34,8 +34,8 @@ export const getUserById = async (req: Request, res: Response) => {
       }
     })
     res.status(200).json({ data: allUser });
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    console.log(error)
     res.status(500).json({ error: "error" });
   }
 };
@@ -75,11 +75,11 @@ export const updateUser = async (req: Request, res: Response) => {
 
     if (existingUser) {
       if (existingUser.nickname === req.body.nickname) {
-        res.status(400).json({ error: "Nickname already exists." });
+        res.status(400).json({ error: "nickname used" });
         return;
       }
       if (existingUser.email === req.body.email) {
-        res.status(400).json({ error: "Email already exists." });
+        res.status(400).json({ error: "email used" });
         return;
       }
     }
@@ -97,8 +97,8 @@ export const updateUser = async (req: Request, res: Response) => {
       },
     });
     res.status(200).json({ data: allUser });
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    console.log(error)
     res.status(500).json({ error: "error" });
   }
 };
@@ -117,8 +117,8 @@ export const deleteUser = async (req: Request, res: Response) => {
       }
     });
     res.status(200).json({ message: "user deleted" });
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "error" });
   }
 }
