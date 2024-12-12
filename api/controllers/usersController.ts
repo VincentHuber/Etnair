@@ -5,22 +5,17 @@ import dotenv from "dotenv";
 
 const bcrypt = require("bcrypt");
 const tokenSecret = process.env.JWT_SECRET as string;
-
-const bcrypt = require("bcrypt");
-const tokenSecret = process.env.JWT_SECRET as string;
 const userPrisma = new PrismaClient().user;
 
 //Route pour trouver tous les users
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const allUser = await userPrisma.findMany({});
-    res.status(200).json({ data: allUser });
+  
     const allUser = await userPrisma.findMany({
 
     })
     res.status(200).json({ data: { allUser } });
   } catch (e) {
-    console.log(e);
     console.log(e)
     res.status(500).json({ error: "error" });
   }
