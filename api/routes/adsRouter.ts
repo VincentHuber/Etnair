@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { createAds, deleteAds, getAdsById, getAllAds, updateAds } from "../controllers/adsController";
+import { createAd, deleteAd, getAds, getAllAds, updateAd } from "../controllers/adsController";
 const adsRouter: Router = Router();
 
 adsRouter.get("/", getAllAds);
-adsRouter.get("/:id", getAdsById);
-adsRouter.post("/:nickname/ad", createAds);
-adsRouter.put("/:id", updateAds);
-adsRouter.delete("/:id", deleteAds);
+adsRouter.get("/getAds", getAds);
+adsRouter.post("/create", createAd);
+adsRouter.put("/update", updateAd);
+adsRouter.delete("/delete", deleteAd);
 
 export default adsRouter;
