@@ -77,7 +77,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
 
 // Route pour se connecter
-export const connectionUser = async (req: Request, res: Response) => {
+export const loginUser = async (req: Request, res: Response) => {
   try {
 
     // Vérifie si les champs sont vides

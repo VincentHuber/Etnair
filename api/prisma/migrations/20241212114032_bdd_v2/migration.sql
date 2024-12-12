@@ -1,10 +1,6 @@
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
-<<<<<<<< HEAD:api/prisma/migrations/20241210190845_init_db/migration.sql
-========
-    "token" TEXT NOT NULL,
->>>>>>>> route_signin:api/prisma/migrations/20241206124312_init_db/migration.sql
     "nickname" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
@@ -19,7 +15,7 @@ CREATE TABLE "User" (
 CREATE TABLE "Ads" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
-    "renterName" TEXT NOT NULL,
+    "renterId" INTEGER NOT NULL,
     "description" TEXT NOT NULL,
     "location" TEXT NOT NULL,
     "nightly_price" INTEGER NOT NULL,
@@ -48,7 +44,7 @@ CREATE UNIQUE INDEX "User_nickname_key" ON "User"("nickname");
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
-ALTER TABLE "Ads" ADD CONSTRAINT "Ads_renterName_fkey" FOREIGN KEY ("renterName") REFERENCES "User"("nickname") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Ads" ADD CONSTRAINT "Ads_renterId_fkey" FOREIGN KEY ("renterId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Bookings" ADD CONSTRAINT "Bookings_adsId_fkey" FOREIGN KEY ("adsId") REFERENCES "Ads"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
