@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
 import adsRouter from "./routes/adsRouter";
 import bookRouter from "./routes/bookingRouter";
-import loginRouter from "./routes/registerRouter";
+import authRouter from "./routes/authRouter";
 import usersRouter from "./routes/usersRouter";
 
 // Charge la variable d'environnement
@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use("/users", usersRouter);
 app.use("/ads", adsRouter);
 app.use("/booking", bookRouter);
-app.use("/auth", loginRouter)
+app.use("/auth", authRouter)
 
 // Route par défaut
 app.get("/", (req: Request, res: Response) => {

@@ -9,7 +9,7 @@ const userPrisma = new PrismaClient().user;
 
 
 // Route pour s'inscrire
-export const registerUser = async (req: Request, res: Response) => {
+export const register = async (req: Request, res: Response) => {
   try {
     console.log("Body reçu :", req.body);
 

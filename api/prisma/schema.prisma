@@ -30,9 +30,8 @@ model Ads {
   title          String
   renter         User       @relation("UserAds", fields: [renterId], references: [id])
   renterId       Int
-  address         String
+  address        String
   description    String
-  location       String
   bookable_dates DateTime[]
   nightly_price  Int
   created_at     DateTime   @default(now())
