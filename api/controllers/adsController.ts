@@ -1,115 +1,161 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
+import * as jwt from "jsonwebtoken";
 
-const adsPrisma = new PrismaClient();
+const tokenSecret = process.env.JWT_SECRET as string;
+const userPrisma = new PrismaClient().user;
+const adsPrisma = new PrismaClient().ads;
 
-//getAllAds
+//Route pour trouver toutes les annonces
 export const getAllAds = async (req: Request, res: Response) => {
   try {
-    const allAds = await adsPrisma.ads.findMany({
-
-    })
+    const allAds = await adsPrisma.findMany({});
     res.status(200).json({ data: allAds });
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({ error: "error" });
+  } catch (e) {
+    console.log(e);
   }
 };
 
-//getAdsById
-export const getAdsById = async (req: Request, res: Response) => {
-  const adsId = req.params.id
+//Route pour trouver toutes les annonces d'un user
+export const getAds = async (req: Request, res: Response) => {
   try {
-    if (!req.body.id) {
-      res.status(400).json({ error: "id not found" });
-      return;
-    }
-    const allAds = await adsPrisma.ads.findUnique({
+    const adsId = req.params.id;
+    const allAds = await adsPrisma.findUnique({
       where: {
         id: parseInt(adsId),
-      }
-    })
+      },
+    });
     res.status(200).json({ data: allAds });
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({ error: "error" });
+  } catch (e) {
+    console.log(e);
   }
 };
 
-//createAds
-export const createAds = async (req: Request, res: Response) => {
-  const nickname = req.params.nickname;
-  const { title, description, location, nightly_price } = req.body;
-
+//Route pour créer une annonce
+export const createAd = async (req: Request, res: Response) => {
   try {
-    if (!req.body.id) {
-      res.status(400).json({ error: "id not found" });
-      return;
-    }
-    const user = await adsPrisma.user.findUnique({
-      where: { nickname },
-    });
+    //Vérifie si les champs sont vides
+    const { title, description, address, nightly_price, bookable_dates } = req.body;
 
-    if (!user) {
-      res.status(404).json({ error: 'User not found' });
+    if (!title || !description || !address || !nightly_price || !bookable_dates) {
+      res.status(400).json({ error: "Certains champs ne sont pas remplis" });
       return;
     }
 
-    const newAds = await adsPrisma.ads.create({
+    //Vérifie le tokenSecret
+    if (!tokenSecret) {
+      res.status(500).json({ error: "Clé secrète manquante pour le token" });
+      return;
+    }
+
+    // Récupération du token depuis le header
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+      res.json({ error: "Token manquant ou invalide" });
+      return;
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    // Décodage et validation du token
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, tokenSecret);
+    } catch (err) {
+      res.status(400).json({ error: "Token invalide ou expiré" });
+      return;
+    }
+
+    // Extraction de l'userId du token
+    const userId = (decodedToken as { userId: number }).userId;
+
+     // Vérifie si l'utilisateur existe
+     const renter = await userPrisma.findUnique({ where: { id: userId } });
+     if (!renter) {
+      res.status(404).json({ error: "Utilisateur introuvable" });
+       return 
+     }
+
+    // Mise à jour de l'utilisateur en se basant sur l'userId
+    const newAd = await adsPrisma.create({
       data: {
         title,
         description,
-        location,
+        address,
+        bookable_dates,
         nightly_price,
-        renterName: nickname,
+        renterId: userId
       },
     });
-    res.status(200).json({ data: newAds });
+
+    res.status(200).json({ data : newAd });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "error" });
+    console.error("Erreur lors de l'inscription :", error);
   }
 };
 
-//updateAds
-export const updateAds = async (req: Request, res: Response) => {
-  const adsId = req.params.id
-  const adsData = req.body;
+//Route pour mettre à jour l'annonce
+export const updateAd = async (req: Request, res: Response) => {
   try {
-    if (!req.body.id) {
-      res.status(400).json({ error: "id not found" });
+    
+    // Récupération du token depuis le header
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+      res.json({ error: "Token manquant ou invalide" });
       return;
     }
-    const allAds = await adsPrisma.ads.update({
-      where: {
-        id: parseInt(adsId),
+
+    const token = authHeader.split(" ")[1];
+
+    // Décodage et validation du token
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, tokenSecret);
+    } catch (err) {
+      res.status(400).json({ error: "Token invalide ou expiré" });
+      return;
+    }
+
+    // Extraction de l'userId du token
+    const userId = (decodedToken as { userId: number }).userId;
+
+    // Mise à jour de l'utilisateur en se basant sur l'userId
+    const updatedUser = await userPrisma.update({
+      where: { id: userId },
+      data: {
+        nickname: req.body.nickname,
+        email: req.body.email,
+        profilePicture: req.body.profilePicture,
       },
-      data: adsData,
     });
 
-    res.status(200).json({ data: allAds });
+    // Retour des données mises à jour
+    res.status(200).json({
+      data: {
+        nickname: updatedUser.nickname,
+        email: updatedUser.email,
+        profilePicture: updatedUser.profilePicture,
+      },
+    });
   } catch (error) {
-    console.log(error)
-    res.status(500).json({ error: "error" });
+    console.error("Erreur lors de la mise à jour du profil :", error);
   }
 };
 
-//deleteAds
-export const deleteAds = async (req: Request, res: Response) => {
-  const adsId = req.params.id
+
+//Route pour supprimer une annonce
+export const deleteAd = async (req: Request, res: Response) => {
   try {
-    if (!req.body.id) {
-      res.status(400).json({ error: "id not found" });
-      return;
-    }
-    const allAds = await adsPrisma.ads.delete({
+    const adsId = req.params.id;
+    const allAds = await adsPrisma.delete({
       where: {
         id: parseInt(adsId),
-      }
+      },
     });
-    res.status(200).json({ message: "ads deleted" });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "error" });
+    res.status(200).json({ data: {} });
+  } catch (e) {
+    console.log(e);
   }
-}
+};
