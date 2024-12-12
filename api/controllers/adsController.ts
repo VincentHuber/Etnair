@@ -8,65 +8,6 @@ const tokenSecret = process.env.JWT_SECRET as string;
 const userPrisma = new PrismaClient().user;
 const adsPrisma = new PrismaClient().ads;
 
-// //Route pour trouver toutes les annonces
-
-// export const getAllAds = async (req: Request, res: Response) => {
-//   try {
-//     const allAds = await adsPrisma.findMany();
-
-//     if (allAds.length === 0) {
-//       res.status(404).json({ error: "Aucun utilisateur trouvé." });
-//       return;
-//     }
-//     res.status(200).json({ data: allAds });
-//   } catch (error) {
-//     console.error("Erreur lors de la récupération des annonces :", error);
-//   }
-// };
-
-// //Route pour trouver toutes les annonces d'un user
-// export const getAds = async (req: Request, res: Response) => {
-//   try {
-//     // Récupération du token depuis le header
-//     const authHeader = req.headers.authorization;
-
-//     if (!authHeader) {
-//       res.json({ error: "Token manquant ou invalide" });
-//       return;
-//     }
-
-//     const token = authHeader.split(" ")[1];
-
-//     // Décodage et validation du token
-//     let decodedToken;
-//     try {
-//       decodedToken = jwt.verify(token, tokenSecret);
-//     } catch (err) {
-//       res.status(400).json({ error: "Token invalide ou expiré" });
-//       return;
-//     }
-
-//     // Extraction de l'userId du token
-//     const userId = (decodedToken as { userId: number }).userId;
-
-//     const userInfo = await userPrisma.findFirst({
-//       where: { id: userId },
-//       include: {
-//         ads: true,
-//         bookings: true,
-//       },
-//     });
-
-//     if (!userInfo) {
-//       res.status(404).json({ error: "Utilisateur introuvable" });
-//       return;
-//     }
-//     res.status(200).json({ data: userInfo });
-//   } catch (error) {
-//     console.error("Erreur lors de la recherche de l'utilisateur :", error);
-//   }
-// };
-
 
 //Route pour créer une annonce
 export const createAd = async (req: Request, res: Response) => {
@@ -150,6 +91,7 @@ export const createAd = async (req: Request, res: Response) => {
 // Route pour mettre à jour l'annonce
 export const updateAd = async (req: Request, res: Response) => {
   try {
+
     // Récupération du token depuis le header
     const authHeader = req.headers.authorization;
 
