@@ -4,8 +4,10 @@ RUN mkdir app
 WORKDIR /app
 RUN npm init --yes && npm install && npm install express
 
+COPY package*.json ./
 COPY . .
 
 EXPOSE 3000 
 
-CMD ["node", "index.js"]
+CMD ["npm", "run","dev", "start"]
+

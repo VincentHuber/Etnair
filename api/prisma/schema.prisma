@@ -14,27 +14,28 @@ datasource db {
 }
 
 model User {
-  id           Int        @id @default(autoincrement())
-  token        Int        @unique
-  nickname     String     @unique
-  email        String     @unique
-  password     String
-  created_at   DateTime   @default(now())
-  host_arrived Boolean
-  ads          Ads[]      @relation("UserAds")
-  bookings     Bookings[] @relation("UserBookings")
+  id             Int        @id @default(autoincrement())
+  nickname       String     @unique
+  email          String     @unique
+  password       String
+  profilePicture String
+  created_at     DateTime   @default(now())
+  host_arrived   Boolean?
+  ads            Ads[]      @relation("UserAds")
+  bookings       Bookings[] @relation("UserBookings")
 }
 
 model Ads {
-  id            Int        @id @default(autoincrement())
-  title         String
-  renter        User       @relation("UserAds", fields: [renterId], references: [id])
-  renterId      Int
-  description   String
-  location      String
-  nightly_price Int
-  created_at    DateTime   @default(now())
-  bookings      Bookings[] @relation("AdsBookings")
+  id             Int        @id @default(autoincrement())
+  title          String
+  renter         User       @relation("UserAds", fields: [renterId], references: [id])
+  renterId       Int
+  address        String
+  description    String
+  bookable_dates DateTime[]
+  nightly_price  Int
+  created_at     DateTime   @default(now())
+  bookings       Bookings[] @relation("AdsBookings")
 }
 
 model Bookings {

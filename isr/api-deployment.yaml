@@ -28,3 +28,8 @@ spec:
   ports:
   - port: 8080
     targetPort: 8080
+
+    networks:
+  network1:
+    name: etnair_network
+    external: true
