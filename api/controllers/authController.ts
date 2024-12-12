@@ -1,12 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 const bcrypt = require("bcrypt");
 const tokenSecret = process.env.JWT_SECRET as string;
-
 const userPrisma = new PrismaClient().user;
-
 
 // Route pour s'inscrire
 export const register = async (req: Request, res: Response) => {
@@ -77,7 +77,7 @@ export const register = async (req: Request, res: Response) => {
 
 
 // Route pour se connecter
-export const loginUser = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response) => {
   try {
 
     // Vérifie si les champs sont vides
