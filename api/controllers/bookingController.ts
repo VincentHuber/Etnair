@@ -1,77 +1,143 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import * as jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
-const bookPrisma = new PrismaClient().bookings;
+const tokenSecret = process.env.JWT_SECRET as string;
+const bookingsPrisma = new PrismaClient().bookings;
+const userPrisma = new PrismaClient().user;
+const adsPrisma = new PrismaClient().ads;
 
-//getAllBooking
-export const getAllBook = async (req: Request, res: Response) => {
+
+//Route pour créer une réservation
+export const createBooking = async (req: Request, res: Response) => {
   try {
-    const allBook = await bookPrisma.findMany({
+    //Vérifie si les champs sont vides
+    const {
+      start_date,
+      end_date,
+      adId
+    } = req.body;
 
-    })
-    res.status(200).json({ data: allBook });
-  } catch (e) {
-    console.log(e)
-  }
-};
+    if (
+      !start_date ||
+      !end_date
+    ) {
+      res.status(400).json({ error: "Certains champs ne sont pas remplis" });
+      return;
+    }
 
-//getBookingById
-export const getBookById = async (req: Request, res: Response) => {
-  try {
-    const bookId = req.params.id
-    const allBook = await bookPrisma.findUnique({
-      where: {
-        id: parseInt(bookId),
-      }
-    })
-    res.status(200).json({ data: allBook });
-  } catch (e) {
-    console.log(e)
-  }
-};
+    //Vérifie le tokenSecret
+    if (!tokenSecret) {
+      res.status(500).json({ error: "Clé secrète manquante pour le token" });
+      return;
+    }
 
-//createBooking
-export const createBook = async (req: Request, res: Response) => {
-  try {
-    const bookData = req.body;
-    const allBook = await bookPrisma.create({
-      data: bookData
-    })
-    res.status(201).json({ data: allBook });
-  } catch (e) {
-    console.log(e)
-  }
-};
+    // Récupération du token depuis le header
+    const authHeader = req.headers.authorization;
 
-//updateBooking
-export const updateBook = async (req: Request, res: Response) => {
-  try {
-    const bookId = req.params.id
-    const bookData = req.body;
-    const allBook = await bookPrisma.update({
-      where: {
-        id: parseInt(bookId),
+    if (!authHeader) {
+      res.json({ error: "Token manquant ou invalide" });
+      return;
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    // Décodage et validation du token
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, tokenSecret);
+    } catch (err) {
+      res.status(400).json({ error: "Token invalide ou expiré" });
+      return;
+    }
+
+    // Extraction de l'userId du token
+    const userId = (decodedToken as { userId: number }).userId;
+
+    // Vérifie si l'utilisateur existe
+    const renter = await userPrisma.findUnique({ where: { id: userId } });
+    if (!renter) {
+      res.status(404).json({ error: "Utilisateur introuvable" });
+      return;
+    }
+
+    // Vérifie que la réservation existe
+    const existingAd = await adsPrisma.findUnique({where : {id: adId}})
+    if (!existingAd){
+      res.status(404).json({error : "Réservation introuvable"})
+      return;
+    }
+
+    // Mise à jour de l'utilisateur en se basant sur l'userId
+    const newBooking = await bookingsPrisma.create({
+      data: {
+        start_date,
+        end_date,
+        adId: adId,
+        tenantId: userId,
       },
-      data: bookData,
     });
 
-    res.status(200).json({ data: allBook });
-  } catch (e) {
-    console.log(e)
+    res.status(200).json({ data: newBooking });
+  } catch (error) {
+    console.error("Erreur lors de la réservation :", error);
   }
 };
 
-//deleteBooking
-export const deleteBook = async (req: Request, res: Response) => {
+
+//Route pour supprimer un booking
+export const deleteBooking = async (req: Request, res: Response) => {
   try {
-    const bookId = req.params.id
-    const allBook = await bookPrisma.delete({
-      where: {
-        id: parseInt(bookId),
-      }
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+      res.status(400).json({ error: "Token manquant ou invalide" });
+      return;
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    // Décodage et validation du token
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, tokenSecret);
+    } catch (err) {
+      res.status(400).json({ error: "Token invalide ou expiré" });
+      return;
+    }
+
+    // Extraction de l'userId du token
+    const userId = (decodedToken as { userId: number }).userId;
+
+    const { bookingId } = req.body;
+
+    // Recherche de la réservation
+    const existingBooking = await bookingsPrisma.findUnique({
+      where: { id: bookingId },
     });
-    res.status(200).json({ data: {} });
-  } catch (e) {
-    console.log(e);
+
+    if (!existingBooking) {
+      res.status(404).json({ error: "Réservation introuvable" });
+      return;
+    }
+
+    // Vérification que l'utilisateur est bien le propriétaire de l'annonce
+    if (existingBooking.tenantId !== userId) {
+      res
+        .status(403)
+        .json({ error: "Vous n'êtes pas autorisé à supprimer cette réservation" });
+      return;
+    }
+
+    // Suppression de la réservation
+    await bookingsPrisma.delete({
+      where: { id: bookingId },
+    });
+
+    res.status(200).json({ message: "Réservation supprimée avec succès" });
+  } catch (error) {
+    console.error("Erreur lors de la suppression de la réservation:", error);
   }
-}
+};

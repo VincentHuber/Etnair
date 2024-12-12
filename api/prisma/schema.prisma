@@ -41,12 +41,11 @@ model Ads {
 
 model Bookings {
   id            Int      @id @default(autoincrement())
-  nightly_price Int
   start_date    DateTime
   end_date      DateTime
   created_at    DateTime @default(now())
-  ads           Ads      @relation("AdsBookings", fields: [adsId], references: [id])
-  adsId         Int
+  ads           Ads      @relation("AdsBookings", fields: [adId], references: [id])
+  adId          Int
   tenant        User     @relation("UserBookings", fields: [tenantId], references: [id])
   tenantId      Int
 }

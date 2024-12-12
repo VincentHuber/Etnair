@@ -1,12 +1,9 @@
 import { Router } from "express";
-import { createBook, deleteBook, getAllBook, getBookById, updateBook } from "../controllers/bookingController";
+import { createBooking, deleteBooking } from "../controllers/bookingController";
 
-const bookRouter: Router = Router();
+const bookingRouter: Router = Router();
 
-bookRouter.get("/", getAllBook);
-bookRouter.get("/:id", getBookById);
-bookRouter.post("/", createBook);
-bookRouter.put("/:id", updateBook);
-bookRouter.delete("/:id", deleteBook);
+bookingRouter.post("/create", createBooking);
+bookingRouter.delete("/delete", deleteBooking);
 
-export default bookRouter;
+export default bookingRouter;
