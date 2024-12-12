@@ -26,15 +26,17 @@ model User {
 }
 
 model Ads {
-  id            Int        @id @default(autoincrement())
-  title         String
-  renter        User       @relation("UserAds", fields: [renterId], references: [id])
-  renterId      Int
-  description   String
-  location      String
-  nightly_price Int
-  created_at    DateTime   @default(now())
-  bookings      Bookings[] @relation("AdsBookings")
+  id             Int        @id @default(autoincrement())
+  title          String
+  renter         User       @relation("UserAds", fields: [renterId], references: [id])
+  renterId       Int
+  address         String
+  description    String
+  location       String
+  bookable_dates DateTime[]
+  nightly_price  Int
+  created_at     DateTime   @default(now())
+  bookings       Bookings[] @relation("AdsBookings")
 }
 
 model Bookings {

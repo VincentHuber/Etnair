@@ -35,9 +35,9 @@ export const getAds = async (req: Request, res: Response) => {
 export const createAd = async (req: Request, res: Response) => {
   try {
     //Vérifie si les champs sont vides
-    const { title, description, address, nightly_price, bookable_dates } = req.body;
+    const { title, description, address, nightly_price, bookable_dates, location } = req.body;
 
-    if (!title || !description || !address || !nightly_price || !bookable_dates) {
+    if (!title || !description || !address || !nightly_price || !bookable_dates || location) {
       res.status(400).json({ error: "Certains champs ne sont pas remplis" });
       return;
     }
@@ -83,6 +83,7 @@ export const createAd = async (req: Request, res: Response) => {
         title,
         description,
         address,
+        location,
         bookable_dates,
         nightly_price,
         renterId: userId
