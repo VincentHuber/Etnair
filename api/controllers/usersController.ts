@@ -8,7 +8,12 @@ const userPrisma = new PrismaClient().user;
 //Route pour trouver tous les users
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const allUsers = await userPrisma.findMany();
+    const allUsers = await userPrisma.findMany({
+      include: {
+        ads: true,
+        bookings: true,
+      },
+    });
 
     // Vérification si des utilisateurs existent
     if (allUsers.length === 0) {
@@ -16,7 +21,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
       return;
     }
 
-    res.status(200).json({ data: { allUsers } });
+    res.status(200).json({ data: allUsers });
   } catch (error) {
     console.error("Erreur lors de la récupération des utilisateurs :", error);
   }
@@ -49,6 +54,10 @@ export const getUser = async (req: Request, res: Response) => {
 
     const userInfo = await userPrisma.findFirst({
       where: { id: userId },
+      include: {
+        ads: true,
+        bookings: true,
+      },
     });
 
     if (!userInfo) {
