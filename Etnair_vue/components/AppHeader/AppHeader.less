@@ -6,7 +6,7 @@
   align-items: center;
   border: solid 1px red;
   height: 90 * @px;
-  padding:0 43 * @px;
+  padding: 0 43 * @px;
 
   &__title {
     font-size: 37 * @px;
@@ -16,16 +16,99 @@
   &__search-bar {
     display: flex;
     align-items: center;
-    height:50*@px;
+    height: 50 * @px;
     border: solid 1px @white;
-    border-radius: 100*@px;
+    border-radius: 100 * @px;
 
     .search-bar {
-      &__searchIcon {
-        width: 20 * @px;
+      &__search {
+        display: flex;
+        align-items: center;
+
+        .search {
+          &__searchIcon {
+            width: 24 * @px;
+            margin-right: 14 * @px;
+            margin-left: 23 * @px;
+          }
+        }
+      }
+      &__destination,
+      &__guests {
+        background-color: transparent;
+        border: none;
+        color: @white;
+        height: 30 * @px;
+
+        &::placeholder {
+          color: @white;
+          font-weight: @light;
+        }
+      }
+
+      &__destination {
+        border-right: solid 1px @white;
+      }
+      &__guests {
+        padding: 0 15 * @px;
+        border-left: solid 1px @white;
+        text-align: center;
       }
     }
+    .dp__main {
+        font-family: @font-sans-serif;
+      --dp-background-color: @black !important;
+      --dp-text-color: @white;
+      --dp-border-color: @black;
+      --dp-text-color: #fff;
+      --dp-hover-text-color: @white;
+      --dp-border-color-hover: @black;
+      font-size: 16px;
+
+      ::placeholder {
+        color: @white;
+        opacity: 1;
+      }
+      .dp__theme_light {
+        --dp-primary-color:@dark-grey;
+      }
+
+      //Disparition de l'icône réinitialiser
+      .dp--clear-btn {
+        display: none;
+      }
+
+      //Disparition de l'icône calendrier
+      .dp__input_icon {
+        display: none;
+      }
+    }
+    .dp__input {
+      font-family: @font-sans-serif;
+      font-size: 14 * @px;
+      font-weight: @light;
+      width: 250 * @px;
+      text-align: center;
+    }
+    .dp__input_focus {
+      border-color: @black;
+    }
+    .dp__action_buttons .dp__action_select {
+      background: @black;
+      &:hover {
+        background: @white;
+        color: @black;
+        border: solid 1px var(--dp-border-color);
+      }
+    }
+    .dp__today {
+      border: 1px solid #8c8c8c;
+    }
+    .dp__action_cancel:hover {
+      border-color: @black;
+    }
   }
+
   &__user {
     display: flex;
     align-items: center;
@@ -57,7 +140,8 @@
         cursor: pointer;
 
         .login {
-          &__userIcon, &__userHoverIcon {
+          &__userIcon,
+          &__userHoverIcon {
             margin-left: 16 * @px;
             width: 35 * @px;
           }
