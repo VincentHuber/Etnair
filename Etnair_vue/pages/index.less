@@ -1,0 +1,13 @@
+@import "@/assets/less/_import.less";
+
+.content {
+  * {
+    grid-column: 3 / 11;
+  }
+
+  @media @mobile {
+    & > * {
+      grid-column: 1 / 7;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 <script setup>
 // import bbq from '~/assets/icons/wifi.svg'
-
+import './index.less'
 const ads = ref(null);
 ads.value = getAds();
 
@@ -10,6 +10,7 @@ async function getAds() {
 </script>
 
 <template>
+    <AppHeader/>
   <div class="content wrapper is-grid">
     <h1 class="content__titre">Ventalon en Cévennes</h1>
     <h2 class="content__titre">Mes informations</h2>
@@ -37,19 +38,3 @@ async function getAds() {
   </div>
 
 </template>
-
-<style lang="less">
-@import "@/assets/less/_import.less";
-
-.content {
-  * {
-    grid-column: 3 / 11;
-  }
-
-  @media @mobile {
-    & > * {
-      grid-column: 1 / 7;
-    }
-  }
-}
-</style>
