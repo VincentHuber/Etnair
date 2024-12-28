@@ -1,0 +1,100 @@
+@import (once) '_reset';
+@import (once) 'fonts';
+
+*,
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: @font-sans-serif;
+  font-size: @init-px;
+  font-weight: @light;
+  line-height: 180%;
+  letter-spacing: 0.3*@px;
+  color: @white;
+  background-color: @black;
+
+  @media @large {
+    font-size: @init-px*1.4;
+  }
+}
+
+*::selection {
+  color: @black;
+}
+
+*:focus-visible {
+  border-radius: 0;
+  outline: none;
+}
+
+a,
+button {
+  text-decoration: none;
+  color: currentColor;
+}
+
+//
+// BLOCKS
+//
+:root {
+  --block-padding-top: 120px;
+
+  @media @mobile {
+    --block-padding-top: 60px;
+  }
+}
+
+//
+// Textes
+//
+
+h1,
+.title-1 {
+  .title-1();
+}
+
+h2,
+.title-2 {
+  .title-2();
+}
+
+h3,
+.title-3 {
+  .title-3();
+}
+
+
+//
+// CTA
+//
+input[type='submit'],
+.cta-primary {
+  .cta-primary();
+}
+
+.cta-primary-outline{
+  .cta-primary-outline();
+}
+
+.cta-secondary {
+  .cta-secondary();
+}
+
+
+//
+// Image
+//
+picture {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  &.is-loaded {
+    opacity: 1;
+  }
+}

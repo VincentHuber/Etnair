@@ -30,6 +30,7 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "less": "^4.2.1",
     "prisma": "^6.1.0"
   }
 }
