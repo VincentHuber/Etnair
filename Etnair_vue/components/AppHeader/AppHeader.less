@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: solid 1px red;
+  background: linear-gradient(rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 0%,rgba(0, 0, 0, 0.8) 0%,rgba(0, 0, 0, 0.8) 0%, rgba(115, 0, 0, 0));
   height: 90 * @px;
   padding: 0 43 * @px;
 
@@ -30,6 +30,7 @@
             width: 24 * @px;
             margin-right: 14 * @px;
             margin-left: 23 * @px;
+            cursor:pointer;
           }
         }
       }
@@ -57,9 +58,9 @@
     }
     .dp__main {
         font-family: @font-sans-serif;
-      --dp-background-color: @black !important;
+      --dp-background-color: transparent;
       --dp-text-color: @white;
-      --dp-border-color: @black;
+      --dp-border-color: transparent;
       --dp-text-color: #fff;
       --dp-hover-text-color: @white;
       --dp-border-color-hover: @black;
