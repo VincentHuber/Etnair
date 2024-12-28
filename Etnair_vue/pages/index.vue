@@ -1,4 +1,6 @@
 <script setup>
+// import bbq from '~/assets/icons/wifi.svg'
+
 const ads = ref(null);
 ads.value = getAds();
 
@@ -31,7 +33,9 @@ async function getAds() {
     <NuxtLink class="cta-primary">Se connecter</NuxtLink>
     <NuxtLink class="cta-primary-outline">Se connecter</NuxtLink>
     <NuxtLink class="cta-secondary">Modifier vos informations</NuxtLink>
+    <!-- <bbq class="content__icon"/> -->
   </div>
+
 </template>
 
 <style lang="less">
@@ -46,11 +50,6 @@ async function getAds() {
     & > * {
       grid-column: 1 / 7;
     }
-  }
-
-  &__titre {
-  }
-  .h-cta-primary {
   }
 }
 </style>
