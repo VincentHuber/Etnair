@@ -1,0 +1,68 @@
+@import "@/assets/less/_import.less";
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: solid 1px red;
+  height: 90 * @px;
+  padding:0 43 * @px;
+
+  &__title {
+    font-size: 37 * @px;
+    text-transform: initial;
+  }
+
+  &__search-bar {
+    display: flex;
+    align-items: center;
+    height:50*@px;
+    border: solid 1px @white;
+    border-radius: 100*@px;
+
+    .search-bar {
+      &__searchIcon {
+        width: 20 * @px;
+      }
+    }
+  }
+  &__user {
+    display: flex;
+    align-items: center;
+
+    .user {
+      &__rent {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .rent {
+          &__addIcon {
+            width: 13 * @px;
+            margin-right: 8 * @px;
+          }
+          &__text-rent {
+            font-weight: @light;
+            border-bottom: 1 * @px solid @white;
+
+            &.no-line {
+              border-bottom: 1 * @px solid transparent;
+            }
+          }
+        }
+      }
+      &__login {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .login {
+          &__userIcon, &__userHoverIcon {
+            margin-left: 16 * @px;
+            width: 35 * @px;
+          }
+        }
+      }
+    }
+  }
+}
