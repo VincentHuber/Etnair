@@ -1,0 +1,64 @@
+// Reset tout le style du bouton
+.reset-style() {
+  position: relative;
+  border: none;
+  outline: none;
+  background: transparent;
+  text-decoration: none;
+  cursor: pointer;
+  width: max-content;
+}
+
+// Bouton primaire
+.cta-primary() {
+  .reset-style();
+  padding: 14px 75px;
+  color: @black;
+  background-color: @white;
+  border: solid 1 * @px @white;
+  border-radius: 100 * @px;
+  font-weight: @semibold;
+ 
+  font-size: 16 * @px;
+  letter-spacing: 0.5 * @px;
+
+  &:hover {
+    color: @white;
+    background-color: @black;
+  }
+}
+
+// Bouton primaire avec contour
+.cta-primary-outline() {
+  .reset-style();
+  padding: 14px 75px;
+  color: @white;
+  background-color: @black;
+  border: solid 1 * @px @white;
+  border-radius: 100 * @px;
+  font-weight: @semibold;
+  width: max-content;
+  font-size: 16 * @px;
+  letter-spacing: 0.5 * @px;
+
+  &:hover {
+    color: @black;
+    background-color: @white;
+  }
+}
+
+// Bouton secondaire
+.cta-secondary() {
+  .reset-style();
+
+  font-size: 14*@px;
+  font-weight: @semibold;
+  color: @white;
+  border-bottom: 2*@px solid @white;
+  padding-bottom:-1px;
+  letter-spacing: 0.5 * @px;
+
+  &:hover{
+    border-bottom: 2*@px solid transparent;
+  }
+}

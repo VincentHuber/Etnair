@@ -30,7 +30,7 @@ model Ads {
   title            String
   renter           User       @relation("UserAds", fields: [renterId], references: [id])
   renterId         Int
-  street_adress     String
+  street_adress    String
   city             String
   zipcode          Int
   description      String
@@ -39,6 +39,7 @@ model Ads {
   number_of_guests Int
   number_of_rooms  Int
   size             Int
+  features         String[]
   pictures         String[]
   created_at       DateTime   @default(now())
   bookings         Bookings[] @relation("AdsBookings")
