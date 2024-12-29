@@ -1,5 +1,5 @@
 <script setup>
-import './index.less'
+import '../assets/less/pages/index.less'
 const ads = ref(null);
 ads.value = getAds();
 

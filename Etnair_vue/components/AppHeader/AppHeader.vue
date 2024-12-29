@@ -4,7 +4,7 @@ import "./AppHeader.less";
 //import de Date Picker
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-import { fr } from 'date-fns/locale';
+import { fr } from "date-fns/locale";
 import { format } from "date-fns";
 
 //Import des icones
@@ -36,7 +36,7 @@ const formatTravelDays = (dates) => {
 <template>
   <div class="app-header">
     <!-- Logo -->
-    <h1 class="app-header__title">Etnair</h1>
+    <NuxtLink to="/" class="app-header__title">Etnair </NuxtLink>
 
     <!-- Barre de recherche -->
     <div class="app-header__search-bar">
@@ -75,6 +75,7 @@ const formatTravelDays = (dates) => {
         @mouseover="isAddHovered = true"
         @mouseleave="isAddHovered = false"
         class="user__rent"
+        to="/rent"
       >
         <addIcon class="rent__addIcon" />
         <p class="rent__text-rent" :class="{ 'no-line': isAddHovered }">
@@ -85,6 +86,7 @@ const formatTravelDays = (dates) => {
         @mouseover="isUserHovered = true"
         @mouseleave="isUserHovered = false"
         class="user__login"
+        to="/user"
       >
         <userIcon v-if="!isUserHovered" class="login__userIcon" />
         <userHoverIcon v-if="isUserHovered" class="login__userHoverIcon" />
