@@ -4,19 +4,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(115, 0, 0, 0)
-  );
+  background-color: @black;
   height: 80 * @px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 
   &__title {
     position: absolute;
-    left: 35 * @px;
+    left: 30 * @px;
     font-size: 30 * @px;
     letter-spacing: 0.5*@px;
     text-transform: initial;
@@ -137,7 +134,7 @@
 
   &__user {
     position: absolute;
-    right: 35 * @px;
+    right: 30 * @px;
     display: flex;
     align-items: center;
 
