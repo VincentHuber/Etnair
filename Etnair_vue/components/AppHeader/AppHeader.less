@@ -2,21 +2,30 @@
 
 .app-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  background: linear-gradient(rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 0%,rgba(0, 0, 0, 0.8) 0%,rgba(0, 0, 0, 0.8) 0%, rgba(115, 0, 0, 0));
-  height: 90 * @px;
-  padding: 0 43 * @px;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(115, 0, 0, 0)
+  );
+  height: 80 * @px;
 
   &__title {
-    font-size: 37 * @px;
+    position: absolute;
+    left: 35 * @px;
+    font-size: 30 * @px;
+    letter-spacing: 0.5*@px;
     text-transform: initial;
   }
 
   &__search-bar {
     display: flex;
     align-items: center;
-    height: 50 * @px;
+    height: 40 * @px;
     border: solid 1px @white;
     border-radius: 100 * @px;
 
@@ -27,10 +36,10 @@
 
         .search {
           &__searchIcon {
-            width: 24 * @px;
-            margin-right: 14 * @px;
-            margin-left: 23 * @px;
-            cursor:pointer;
+            width: 23 * @px;
+            margin-right: 13 * @px;
+            margin-left: 18 * @px;
+            cursor: pointer;
           }
         }
       }
@@ -39,7 +48,8 @@
         background-color: transparent;
         border: none;
         color: @white;
-        height: 30 * @px;
+        height: 22 * @px;
+        text-align: center;
 
         &::placeholder {
           color: @white;
@@ -49,6 +59,9 @@
 
       &__destination {
         border-right: solid 1px @white;
+        max-width:150*@px;
+        padding-right: 15 * @px;
+
       }
       &__guests {
         padding: 0 15 * @px;
@@ -57,21 +70,20 @@
       }
     }
     .dp__main {
-        font-family: @font-sans-serif;
+      font-family: @font-sans-serif;
       --dp-background-color: transparent;
       --dp-text-color: @white;
       --dp-border-color: transparent;
       --dp-text-color: #fff;
       --dp-hover-text-color: @white;
       --dp-border-color-hover: @black;
-      font-size: 16px;
 
       ::placeholder {
         color: @white;
         opacity: 1;
       }
       .dp__theme_light {
-        --dp-primary-color:@dark-grey;
+        --dp-primary-color: @dark-grey;
       }
 
       //Disparition de l'icône réinitialiser
@@ -83,12 +95,25 @@
       .dp__input_icon {
         display: none;
       }
+
+      //Bordure des dates sélectionnées
+      .dp__range_between{
+        background:rgb(84, 84, 84);
+        color:white;
+        border:none;
+      }
+
+      // Padding interne
+      .dp__input_icon_pad{
+        padding-inline-start:0;
+        padding-inline-end:0
+      }
     }
     .dp__input {
       font-family: @font-sans-serif;
-      font-size: 14 * @px;
+      font-size: 12 * @px;
       font-weight: @light;
-      width: 250 * @px;
+      width: 200 * @px;
       text-align: center;
     }
     .dp__input_focus {
@@ -111,6 +136,8 @@
   }
 
   &__user {
+    position: absolute;
+    right: 35 * @px;
     display: flex;
     align-items: center;
 
@@ -122,6 +149,7 @@
 
         .rent {
           &__addIcon {
+            padding-top:2*@px;
             width: 13 * @px;
             margin-right: 8 * @px;
           }
@@ -143,8 +171,8 @@
         .login {
           &__userIcon,
           &__userHoverIcon {
-            margin-left: 16 * @px;
-            width: 35 * @px;
+            margin-left: 10 * @px;
+            width: 30 * @px;
           }
         }
       }
