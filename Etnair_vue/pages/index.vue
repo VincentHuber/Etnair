@@ -9,7 +9,6 @@ async function getAds() {
 </script>
 
 <template>
-    <AppHeader/>
   <div class="content wrapper is-grid">
     <h1 class="content__titre">Ventalon en Cévennes</h1>
     <h2 class="content__titre">Mes informations</h2>
