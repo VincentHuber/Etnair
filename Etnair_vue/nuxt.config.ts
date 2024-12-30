@@ -11,4 +11,13 @@ export default defineNuxtConfig({
   build: {
     transpile: ["@vuepic/vue-datepicker"],
   },
+  vite: {
+    css: {
+      preprocessorOptions: {
+        less: {
+          additionalData: `@import (once) '@/assets/less/_import.less';`,
+        },
+      },
+    },
+}
 });
