@@ -1,7 +1,6 @@
 <script setup>
 import "./AppHeader.less";
 const store = useAuthStore();
-
 const handleLogin = ref(false)
 
 //import de Date Picker
@@ -36,11 +35,12 @@ const formatTravelDays = (dates) => {
 };
 
 
-// Active le composant Login
+// Active le composant LogIn
 const handleLoginClick = () =>{
   handleLogin.value = true
 }
 
+// Désactive le composant LogIn
 const exitLogin = () =>{
   handleLogin.value = false
 }
@@ -49,9 +49,9 @@ const exitLogin = () =>{
 
 <template>
   <!-- Se connnecter -->
-  <LogIn v-if="handleLogin" @click="exitLogin"/>
-  <div class="app-header">
+  <LogIn v-if="handleLogin" @close="exitLogin"/>
 
+  <div class="app-header">
     <!-- Logo -->
     <NuxtLink to="/" class="app-header__title">Etnair </NuxtLink>
 
@@ -92,6 +92,7 @@ const exitLogin = () =>{
         @mouseover="isAddHovered = true"
         @mouseleave="isAddHovered = false"
         class="user__rent"
+        @click="handleLoginClick"
         :to="store.isAuthenticated ? '/rent' : '/'"
       >
         <addIcon class="rent__addIcon" />
