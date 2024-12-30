@@ -1,5 +1,8 @@
 <script setup>
 import "./AppHeader.less";
+const store = useAuthStore();
+
+const handleLogin = ref(false)
 
 //import de Date Picker
 import Datepicker from "@vuepic/vue-datepicker";
@@ -31,10 +34,24 @@ const formatTravelDays = (dates) => {
   }
   return format(dates, "dd/MM/yyyy", { locale: fr });
 };
+
+
+// Active le composant Login
+const handleLoginClick = () =>{
+  handleLogin.value = true
+}
+
+const exitLogin = () =>{
+  handleLogin.value = false
+}
+
 </script>
 
 <template>
+  <!-- Se connnecter -->
+  <LogIn v-if="handleLogin" @click="exitLogin"/>
   <div class="app-header">
+
     <!-- Logo -->
     <NuxtLink to="/" class="app-header__title">Etnair </NuxtLink>
 
@@ -75,7 +92,7 @@ const formatTravelDays = (dates) => {
         @mouseover="isAddHovered = true"
         @mouseleave="isAddHovered = false"
         class="user__rent"
-        to="/rent"
+        :to="store.isAuthenticated ? '/rent' : '/'"
       >
         <addIcon class="rent__addIcon" />
         <p class="rent__text-rent" :class="{ 'no-line': isAddHovered }">
@@ -86,7 +103,8 @@ const formatTravelDays = (dates) => {
         @mouseover="isUserHovered = true"
         @mouseleave="isUserHovered = false"
         class="user__login"
-        to="/user"
+        @click="handleLoginClick"
+        :to="store.isAuthenticated ? '/user' : '/'"
       >
         <userIcon v-if="!isUserHovered" class="login__userIcon" />
         <userHoverIcon v-if="isUserHovered" class="login__userHoverIcon" />
