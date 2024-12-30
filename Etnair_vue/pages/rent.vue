@@ -1,6 +1,19 @@
 <script setup>
 import '../assets/less/pages/rent.less'
 
+const store = useAuthStore(); // Initialisation du store
+
+// Fonction pour vérifier l'accès à la page
+const accessPage = () => {
+  if (!store.isAuthenticated) { 
+    return navigateTo('/');
+  }
+};
+
+onMounted(() => {
+  accessPage();
+});
+
 </script>
 
 <template>
