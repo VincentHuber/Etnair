@@ -1,7 +1,10 @@
 <script setup>
 import "./AppHeader.less";
-const store = useAuthStore();
-const handleLogin = ref(false)
+const handleLogin = ref(false);
+
+//import des stores
+const authStore = useAuthStore();
+const loginStore = useLoginStore();
 
 //import de Date Picker
 import Datepicker from "@vuepic/vue-datepicker";
@@ -34,23 +37,27 @@ const formatTravelDays = (dates) => {
   return format(dates, "dd/MM/yyyy", { locale: fr });
 };
 
+//Lien info user
+const goToUser = () => {
+  if (authStore.isAuthenticated) {
+    navigateTo("/user");
+  } else {
+    loginStore.setIsLoginVisible(true);
+  }
+};
 
-// Active le composant LogIn
-const handleLoginClick = () =>{
-  handleLogin.value = true
-}
-
-// Désactive le composant LogIn
-const exitLogin = () =>{
-  handleLogin.value = false
-}
+//Lien pour ajouter une annonce
+const goToAddRent = () => {
+  if (authStore.isAuthenticated) {
+    navigateTo("/rent");
+  } else {
+    loginStore.setIsLoginVisible(true);
+  }
+};
 
 </script>
 
 <template>
-  <!-- Se connnecter -->
-  <LogIn v-if="handleLogin" @close="exitLogin"/>
-
   <div class="app-header">
     <!-- Logo -->
     <NuxtLink to="/" class="app-header__title">Etnair </NuxtLink>
@@ -92,8 +99,7 @@ const exitLogin = () =>{
         @mouseover="isAddHovered = true"
         @mouseleave="isAddHovered = false"
         class="user__rent"
-        @click="handleLoginClick"
-        :to="store.isAuthenticated ? '/rent' : '/'"
+        @click="goToAddRent"
       >
         <addIcon class="rent__addIcon" />
         <p class="rent__text-rent" :class="{ 'no-line': isAddHovered }">
@@ -104,8 +110,7 @@ const exitLogin = () =>{
         @mouseover="isUserHovered = true"
         @mouseleave="isUserHovered = false"
         class="user__login"
-        @click="handleLoginClick"
-        :to="store.isAuthenticated ? '/user' : '/'"
+        @click="goToUser"
       >
         <userIcon v-if="!isUserHovered" class="login__userIcon" />
         <userHoverIcon v-if="isUserHovered" class="login__userHoverIcon" />

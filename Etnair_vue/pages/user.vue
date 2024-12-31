@@ -1,14 +1,11 @@
 <script setup>
 import '../assets/less/pages/user.less'
  
-import { useAuthStore } from '../stores/auth';
-
-
-const store = useAuthStore(); // Initialisation du store
+const authStore = useAuthStore();
 
 // Fonction pour vérifier l'accès à la page
 const accessPage = () => {
-  if (!store.isAuthenticated) { 
+  if (!authStore.isAuthenticated) { 
     return navigateTo('/');
   }
 };
@@ -23,6 +20,5 @@ onMounted(() => {
 <template>
     <div>
         <h1>User page</h1>
-
     </div>
 </template>

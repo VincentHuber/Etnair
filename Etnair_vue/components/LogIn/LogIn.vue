@@ -4,17 +4,17 @@ import CloseIcon from "../../../assets/icons/close.svg";
 
 const isSignUp = ref(false)
 
+//import du store
+const loginStore = useLoginStore();
+
 //Variables des inputs
 const username = ref("");
 const mail = ref("");
 const password = ref("");
 
-// Définir l'événement "close"
-const emit = defineEmits(["close"]);
-
-//Ferme la modale
+//Fermer la modale de login
 const closeLogin = () => {
-  emit("close");
+  loginStore.setIsLoginVisible(false);
 };
 
 // Fonction pour se connecter/s'inscrire
