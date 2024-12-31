@@ -2,7 +2,7 @@
 import "./LogIn.less";
 import CloseIcon from "../../../assets/icons/close.svg";
 
-const isSignUp = ref(false)
+const isSignUp = ref(false);
 
 //import du store
 const loginStore = useLoginStore();
@@ -19,7 +19,12 @@ const closeLogin = () => {
 
 // Fonction pour se connecter/s'inscrire
 const handleSignUp = () => {
-  isSignUp.value = !isSignUp.value
+  isSignUp.value = !isSignUp.value;
+};
+
+//Upload la photo de profil
+const uploadPicture = () => {
+
 }
 
 </script>
@@ -38,33 +43,39 @@ const handleSignUp = () => {
       type="test"
       placeholder="Nom d'utilisateur"
     />
-    <input 
-      class="log-in__mail" 
-      v-model="mail" type="mail" 
-      placeholder="Mail" 
-      />
+    <input class="log-in__mail" v-model="mail" type="mail" placeholder="Mail" />
     <input
       class="log-in__password"
       v-model="password"
       type="password"
-      placeholder="Mot de Passe"
+      placeholder="Mot de passe"
     />
 
-    <button v-if="isSignUp" class="log-in__upload">Télécharger une photo de profil</button>
+    <button 
+      v-if="isSignUp" 
+      class="log-in__upload"
+      @click="uploadPicture"   
+      >
+      Télécharger une photo de profil
+    </button>
 
-   
+    <NuxtLink v-if="!isSignUp" class="cta-primary log-in__login"
+      >Se connecter</NuxtLink
+    >
 
-    <NuxtLink v-if="!isSignUp" class="cta-primary log-in__login">Se connecter</NuxtLink>
-    
     <NuxtLink v-else class="cta-primary log-in__login">S'inscrire</NuxtLink>
 
     <p v-if="!isSignUp" class="log-in__new-member">
       Nouveau membre ?
-      <span class="cta-secondary new-member__signup" @click="handleSignUp">Crée un compte !</span>
+      <span class="cta-secondary new-member__signup" @click="handleSignUp"
+        >Crée un compte !</span
+      >
     </p>
     <p v-else class="log-in__new-member">
       Tu as déjà un compte ?
-      <span class="cta-secondary new-member__signup" @click="handleSignUp">Connecte toi !</span>
+      <span class="cta-secondary new-member__signup" @click="handleSignUp"
+        >Connecte toi !</span
+      >
     </p>
   </div>
 
