@@ -1,6 +1,6 @@
 .background {
   background-color: rgba(0, 0, 0, 0.8);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -8,12 +8,11 @@
   z-index: 1;
 }
 .log-in {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%;-50%);
-  width: 300 * @px;
-  border-radius: 15 * @px;
+  width: 320 * @px;
   background-color: white;
   z-index: 2;
   display: flex;
@@ -40,10 +39,11 @@
     text-align: center;
   }
 
+  &__username,
   &__mail,
   &__password {
-    height: 35 * @px;
-    width: 240 * @px;
+    height: 37 * @px;
+    width: 270 * @px;
     border: none;
     background-color: @light-grey;
     font-size: 12 * @px;
@@ -55,22 +55,39 @@
     }
   }
 
-  &__mail {
-    border-radius: 8 * @px 8 * @px 0 0;
+  &__username {
+    // border-radius: 8 * @px 8 * @px 0 0;
     margin-bottom: 3 * @px;
 
-    &:focus {
-      border-radius: 8 * @px 8 * @px 0 0;
-    }
+    // &:focus {
+    //   border-radius: 8 * @px 8 * @px 0 0;
+    // }
+  }
+
+  &__mail {
+    // border-radius: 8 * @px 8 * @px 0 0;
+    margin-bottom: 3 * @px;
+
+    // &.is-signup {
+    //   border-radius: 0 !important;
+
+    //   &:focus {
+    //     border-radius: 0 !important;
+    //   }
+    // }
+
+    // &:focus {
+    //   border-radius: 8 * @px 8 * @px 0 0;
+    // }
   }
 
   &__password {
-    border-radius: 0 0 8 * @px 8 * @px;
+    // border-radius: 0 0 8 * @px 8 * @px;
     margin-bottom: 15 * @px;
 
-    &:focus {
-      border-radius: 0 0 8 * @px 8 * @px;
-    }
+    // &:focus {
+    //   border-radius: 0 0 8 * @px 8 * @px;
+    // }
   }
 
   &__login {
@@ -82,7 +99,7 @@
     &:hover {
       background-color: @white !important;
       color: @black !important;
-      border: solid 1 * @px @light-grey;
+      border: solid 1 * @px rgb(183, 183, 183);
     }
   }
 
@@ -103,8 +120,3 @@
     }
   }
 }
-
-// A REGLER
-// body {
-//   overflow: hidden;
-// }
