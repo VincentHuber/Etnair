@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.3.0",
+    "@nuxtjs/cloudinary": "^4.0.0",
     "@pinia/nuxt": "^0.9.0",
     "@prisma/client": "^6.1.0",
     "@types/bcrypt": "^5.0.2",
