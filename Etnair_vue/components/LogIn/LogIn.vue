@@ -1,19 +1,20 @@
 <script setup>
 import "./LogIn.less";
 import CloseIcon from "../../../assets/icons/close.svg";
-import UploadIcon from "../../../assets/icons/upload.svg"
-import ValidateIcon from "../../../assets/icons/validate.svg"
+import UploadIcon from "../../../assets/icons/upload.svg";
+import ValidateIcon from "../../../assets/icons/validate.svg";
 
 const isSignUp = ref(false);
 
 //import du store
 const loginStore = useLoginStore();
+const authStore = useAuthStore();
 
 //Variables des inputs
-const username = ref("");
+const nickname = ref("");
 const mail = ref("");
 const password = ref("");
-const uploadedImageUrl = ref("");
+const picture = ref("");
 
 //Fermer la modale de login
 const closeLogin = () => {
@@ -27,10 +28,79 @@ const handleSignUp = () => {
 
 // Enregistre le lien de l'image uploadée
 const uploadPicture = (event) => {
-  uploadedImageUrl.value = event.info.secure_url;
-  console.log("url : ", event.info.secure_url)
+  picture.value = event.info.secure_url;
 };
 
+// Fonction pour s'inscrire
+const handleSignup = async () => {
+  if (!nickname.value || !mail.value || !password.value || !picture.value) {
+    return;
+  }
+
+  //Formatage du nickname avec une majuscule à la première lettre
+  const formatNickname =
+    nickname.value.charAt(0).toUpperCase() +
+    nickname.value.slice(1).toLowerCase();
+
+  //Formatage du mail en minuscule
+  const formatMail = mail.value.toLowerCase()
+
+  //Crée l'objet à envoyer dans le back
+  const userData = {
+    nickname: formatNickname,
+    email: formatMail,
+    password: password.value,
+    picture: picture.value,
+  };
+
+  try {
+    //Envoie l'user dans le back
+    const response = await $fetch("/api/users", {
+      method: "POST",
+      body: userData,
+    });
+
+    if (response?.data) {
+      authStore.setToken(response.data.token)
+      closeLogin()
+    }
+  } catch (error) {
+    console.error("Erreur lors de l'inscription", error);
+  }
+};
+
+// Fonction pour se connecter
+const handleSignin = async () => {
+  if (!mail.value || !password.value) {
+    return;
+  }
+
+  //Formatage du mail en minuscule
+  const formatMail = mail.value.toLowerCase()
+
+  //Crée l'objet à envoyer dans le back
+  const userData = {
+    email: formatMail,
+    password: password.value,
+  };
+
+  console.log("userData : ", userData)
+
+  try {
+    //Envoie l'user dans le back
+    const response = await $fetch("/api/auth", {
+      method: "POST",
+      body: userData,
+    });
+
+    if (response?.data) {
+      authStore.setToken(response.data.token)
+      closeLogin()
+    }
+  } catch (error) {
+    console.error("Erreur lors de l'inscription", error);
+  }
+};
 </script>
 
 <template>
@@ -42,9 +112,9 @@ const uploadPicture = (event) => {
     <h3 v-else class="log-in__title">Inscription</h3>
     <input
       v-if="isSignUp"
-      class="log-in__username"
-      v-model="username"
-      type="test"
+      class="log-in__nickname"
+      v-model="nickname"
+      type="text"
       placeholder="Nom d'utilisateur"
     />
     <input class="log-in__mail" v-model="mail" type="mail" placeholder="Mail" />
@@ -62,28 +132,34 @@ const uploadPicture = (event) => {
       :multiple="false"
       @success="uploadPicture"
     >
-      <button  
-        v-if="!uploadedImageUrl" 
-        type="button" 
-        class="log-in__upload" 
-        @click="open">
-        Télécharger une photo de profil 
-        <UploadIcon class="upload__uploadIcon"/>
+      <button
+        v-if="!picture"
+        type="button"
+        class="log-in__upload"
+        @click="open"
+      >
+        Télécharger une photo de profil
+        <UploadIcon class="upload__uploadIcon" />
       </button>
-      <button  
-        v-else 
-        type="button" 
-        class="log-in__upload" 
-        @click="open">
-        Photo de profil téléchargée <ValidateIcon class="upload__validateIcon" />
+      <button v-else type="button" class="log-in__upload" @click="open">
+        Photo de profil téléchargée
+        <ValidateIcon class="upload__validateIcon" />
       </button>
     </CldUploadWidget>
 
-    <NuxtLink v-if="!isSignUp" class="cta-primary log-in__login"
-      >Se connecter</NuxtLink
+    <NuxtLink 
+      v-if="!isSignUp" 
+      class="cta-primary log-in__login"
+      @click="handleSignin">
+        Se connecter</NuxtLink
     >
 
-    <NuxtLink v-else class="cta-primary log-in__login">S'inscrire</NuxtLink>
+    <NuxtLink 
+      v-else 
+      class="cta-primary log-in__login" 
+      @click="handleSignup">
+        S'inscrire</NuxtLink
+    >
 
     <p v-if="!isSignUp" class="log-in__new-member">
       Nouveau membre ?
