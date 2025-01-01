@@ -1,6 +1,8 @@
 <script setup>
 import "./LogIn.less";
 import CloseIcon from "../../../assets/icons/close.svg";
+import UploadIcon from "../../../assets/icons/upload.svg"
+import ValidateIcon from "../../../assets/icons/validate.svg"
 
 const isSignUp = ref(false);
 
@@ -11,6 +13,7 @@ const loginStore = useLoginStore();
 const username = ref("");
 const mail = ref("");
 const password = ref("");
+const uploadedImageUrl = ref("");
 
 //Fermer la modale de login
 const closeLogin = () => {
@@ -22,10 +25,11 @@ const handleSignUp = () => {
   isSignUp.value = !isSignUp.value;
 };
 
-//Upload la photo de profil
-const uploadPicture = () => {
-
-}
+// Enregistre le lien de l'image uploadée
+const uploadPicture = (event) => {
+  uploadedImageUrl.value = event.info.secure_url;
+  console.log("url : ", event.info.secure_url)
+};
 
 </script>
 
@@ -51,13 +55,29 @@ const uploadPicture = () => {
       placeholder="Mot de passe"
     />
 
-    <button 
-      v-if="isSignUp" 
-      class="log-in__upload"
-      @click="uploadPicture"   
-      >
-      Télécharger une photo de profil
-    </button>
+    <CldUploadWidget
+      v-slot="{ open }"
+      v-if="isSignUp"
+      uploadPreset="etnair_preset"
+      :multiple="false"
+      @success="uploadPicture"
+    >
+      <button  
+        v-if="!uploadedImageUrl" 
+        type="button" 
+        class="log-in__upload" 
+        @click="open">
+        Télécharger une photo de profil 
+        <UploadIcon class="upload__uploadIcon"/>
+      </button>
+      <button  
+        v-else 
+        type="button" 
+        class="log-in__upload" 
+        @click="open">
+        Photo de profil téléchargée <ValidateIcon class="upload__validateIcon" />
+      </button>
+    </CldUploadWidget>
 
     <NuxtLink v-if="!isSignUp" class="cta-primary log-in__login"
       >Se connecter</NuxtLink
