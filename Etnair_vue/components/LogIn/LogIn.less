@@ -133,10 +133,35 @@
     cursor:pointer;
     border-radius: 5*@px;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+
     &:hover{
       background-color: @white;
       color:@black;
       border: solid 1*@px @medium-light-grey;
+    }
+    .upload__uploadIcon{
+      position: relative;
+      margin-left:6*@px;
+      color: inherit; 
+      width:15*@px;
+
+      &:hover{
+        color: inherit; 
+       }
+    }
+
+    .upload__validateIcon{
+      position: relative;
+      margin-left:6*@px;
+      color: inherit; 
+      width:16*@px;
+
+      &:hover{
+        color: inherit !important; 
+       }
     }
   }
 }
