@@ -3,8 +3,6 @@ import "../assets/less/pages/user.less";
 
 // Import des stores
 const authStore = useAuthStore();
-const loginStore = useLoginStore()
-const goToStore = useGoToStore()
 
 //Import de l'icon
 import addIcon from "../../assets/icons/add.svg";
@@ -21,12 +19,7 @@ const accessPage = () => {
 
 //Lien pour ajouter une annonce
 const goToAddRent = () => {
-  if (authStore.isAuthenticated) {
     navigateTo("/rent");
-  } else {
-    goToStore.setGoTo("/rent");
-    loginStore.setIsLoginVisible(true);
-  }
 };
 
 //Fonction pour se déconnecter
