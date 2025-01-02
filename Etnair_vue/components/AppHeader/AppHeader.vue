@@ -27,6 +27,12 @@ const destination = ref(null);
 const travelDays = ref(null);
 const guests = ref(null);
 
+const isMobile = ref(null)
+
+const updateIsMobile = () => {
+  isMobile.value = window.innerWidth < 1135;
+};
+
 //Formate la date
 const formatTravelDays = (dates) => {
   if (Array.isArray(dates)) {
@@ -57,6 +63,15 @@ const goToAddRent = () => {
   }
 };
 
+//Vérifie la largeur de la fenêtre
+onMounted(()=>{
+  updateIsMobile()
+  window.addEventListener("resize", updateIsMobile);
+})
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateIsMobile);
+});
 </script>
 
 <template>
@@ -65,7 +80,7 @@ const goToAddRent = () => {
     <NuxtLink to="/" class="app-header__title">Etnair </NuxtLink>
 
     <!-- Barre de recherche -->
-    <div class="app-header__search-bar">
+    <div v-if="!isMobile" class="app-header__search-bar">
       <NuxtLink class="search-bar__search">
         <searchIcon class="search__searchIcon" />
       </NuxtLink>
@@ -98,6 +113,7 @@ const goToAddRent = () => {
     <!-- Boutons pour l'user -->
     <div class="app-header__user">
       <NuxtLink
+        v-if="!isMobile"
         @mouseover="isAddHovered = true"
         @mouseleave="isAddHovered = false"
         class="user__rent"
@@ -108,6 +124,16 @@ const goToAddRent = () => {
           Louer ma propriété
         </p>
       </NuxtLink>
+      <NuxtLink
+        v-else
+        class="user__rent"
+      >
+      <searchIcon class="rent__searchIcon" />
+      <p class="rent__text-rent">
+          Recherche
+        </p>
+      </NuxtLink>
+
       <NuxtLink
         @mouseover="isUserHovered = true"
         @mouseleave="isUserHovered = false"
