@@ -9,6 +9,7 @@ const isSignUp = ref(false);
 //import du store
 const loginStore = useLoginStore();
 const authStore = useAuthStore();
+const goToStore = useGoToStore()
 
 //Variables des inputs
 const nickname = ref("");
@@ -61,7 +62,9 @@ const handleSignup = async () => {
     });
 
     if (response?.data) {
+      navigateTo(goToStore.page)
       authStore.setToken(response.data.token)
+      goToStore.clearGoTo()
       closeLogin()
     }
   } catch (error) {
@@ -84,8 +87,6 @@ const handleSignin = async () => {
     password: password.value,
   };
 
-  console.log("userData : ", userData)
-
   try {
     //Envoie l'user dans le back
     const response = await $fetch("/api/auth", {
@@ -94,7 +95,9 @@ const handleSignin = async () => {
     });
 
     if (response?.data) {
+      navigateTo(goToStore.page)
       authStore.setToken(response.data.token)
+      goToStore.clearGoTo()
       closeLogin()
     }
   } catch (error) {

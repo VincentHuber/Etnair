@@ -1,10 +1,10 @@
 <script setup>
 import "./AppHeader.less";
-const handleLogin = ref(false);
 
 //import des stores
 const authStore = useAuthStore();
 const loginStore = useLoginStore();
+const goToStore = useGoToStore()
 
 //import de Date Picker
 import Datepicker from "@vuepic/vue-datepicker";
@@ -42,6 +42,7 @@ const goToUser = () => {
   if (authStore.isAuthenticated) {
     navigateTo("/user");
   } else {
+    goToStore.setGoTo("/user")
     loginStore.setIsLoginVisible(true);
   }
 };
@@ -51,6 +52,7 @@ const goToAddRent = () => {
   if (authStore.isAuthenticated) {
     navigateTo("/rent");
   } else {
+    goToStore.setGoTo("/rent")
     loginStore.setIsLoginVisible(true);
   }
 };
