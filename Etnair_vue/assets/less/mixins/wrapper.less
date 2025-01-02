@@ -1,10 +1,24 @@
 @wrapper-width: 100%;
 @wrapper-padding: 16*@px;
-@wrapper-padding-desktop: 56 * @px;
-@wrapper-padding-desktop-large: 144 * @px;
+@wrapper-padding-desktop: 48 * @px;
+@wrapper-padding-desktop-large: 55 * @px;
+@wrapper-padding-desktop-extra-large: 124 * @px;
 
 .wrapper() {
   --width: @wrapper-width;
+  --padding-x: @wrapper-padding;
+
+  @media @not-mobile {
+    --padding-x: @wrapper-padding-desktop;
+  }
+
+  @media @large {
+    --padding-x: @wrapper-padding-desktop-large;
+  }
+
+  @media @extra-large {
+    --padding-x: @wrapper-padding-desktop-extra-large;
+  }
 
   margin-left: auto;
   margin-right: auto;
@@ -14,18 +28,17 @@
   padding-right: var(--padding-x);
 
   &.is-grid {
-    .grid();
+    .grid()
   }
 
   // &.is-full-width {
+  //   --width: 100vw;
+
   //   position: relative;
+  //   width: var(--width);
   //   margin-left: 0;
   //   margin-right: 0;
   //   left: 50%;
   //   transform: translate3d(-50%, 0, 0);
   // }
 }
-.wrapper {
-  .wrapper();
-}
-
