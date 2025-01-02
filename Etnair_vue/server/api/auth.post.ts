@@ -62,6 +62,7 @@ export default defineEventHandler(async (event) => {
         result: true,
         email: existingUser.email,
         nickname: existingUser.nickname,
+        picture:existingUser.picture,
         token: token,
       },
     };
