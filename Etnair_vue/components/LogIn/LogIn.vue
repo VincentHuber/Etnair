@@ -63,6 +63,7 @@ const handleSignup = async () => {
 
     if (response?.data) {
       navigateTo(goToStore.page)
+      authStore.setUser(response.data)
       authStore.setToken(response.data.token)
       goToStore.clearGoTo()
       closeLogin()
@@ -96,6 +97,7 @@ const handleSignin = async () => {
 
     if (response?.data) {
       navigateTo(goToStore.page)
+      authStore.setUser(response.data)
       authStore.setToken(response.data.token)
       goToStore.clearGoTo()
       closeLogin()
