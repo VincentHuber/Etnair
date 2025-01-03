@@ -23,7 +23,10 @@ export default defineEventHandler(async (event) => {
 
     // Retour de la liste des annonces
     return {
-      data: allBookings,
+      data: {
+        result:true,
+        allBookings
+      },
     };
   } catch (error) {
     console.error("Erreur lors de la récupération des réservations:", error);

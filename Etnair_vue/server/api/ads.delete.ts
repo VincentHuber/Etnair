@@ -64,7 +64,10 @@ export default defineEventHandler(async (event) => {
     });
 
     return {
-      message: "Annonce supprimée avec succès",
+      data: {
+        result: true,
+        message: "Annonce supprimée avec succès",
+      },
     };
   } catch (error) {
     console.error("Erreur lors de la suppression de l'annonce:", error);

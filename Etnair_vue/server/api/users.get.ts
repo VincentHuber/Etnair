@@ -23,7 +23,10 @@ export default defineEventHandler(async (event) => {
 
     // Retour de la liste des utilisateurs
     return {
-      data: allUsers,
+      data: { 
+        result:true,
+        allUsers
+      },
     };
   } catch (error) {
     throw createError({

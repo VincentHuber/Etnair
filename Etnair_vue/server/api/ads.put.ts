@@ -90,7 +90,12 @@ export default defineEventHandler(async (event) => {
       },
     });
 
-    return { updatedAd };
+    return {
+      data: {
+        result: true,
+        updatedAd,
+      },
+    };
   } catch (error) {
     console.error("Erreur lors de la mise à jour de l'annonce :", error);
     throw createError({

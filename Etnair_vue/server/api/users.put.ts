@@ -40,6 +40,7 @@ export default defineEventHandler(async (event) => {
     // Retour des données mises à jour
     return {
       data: {
+        result: true,
         nickname: updatedUser.nickname,
         email: updatedUser.email,
         picture: updatedUser.picture,

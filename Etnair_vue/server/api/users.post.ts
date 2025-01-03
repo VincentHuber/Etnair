@@ -31,6 +31,10 @@ export default defineEventHandler(async (event) => {
     // Vérifie si l'email ou le nickname existe déjà
     const existingUser = await prisma.user.findFirst({
       where: { email: body.email },
+      include: {
+        ads: true,
+        bookings: true,
+      },
     });
 
     if (existingUser) {
@@ -64,6 +68,7 @@ export default defineEventHandler(async (event) => {
     // Retourne les informations de l'utilisateur avec le token
     return {
       data: {
+        result:true,
         nickname: newUser.nickname,
         email: newUser.email,
         picture: newUser.picture,

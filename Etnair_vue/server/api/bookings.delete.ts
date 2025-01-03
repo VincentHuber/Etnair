@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
 
     const token = authHeader.split(" ")[1];
     const decodedToken = jwt.decode(token);
-   
+
     // Extraction de l'userId du token
     const userId = (decodedToken as { userId: number }).userId;
 
@@ -69,7 +69,10 @@ export default defineEventHandler(async (event) => {
     });
 
     return {
-      message: "Réservation supprimée avec succès",
+      data: {
+        result: true,
+        message: "Réservation supprimée avec succès",
+      },
     };
   } catch (error) {
     console.error("Erreur lors de la suppression de la réservation :", error);

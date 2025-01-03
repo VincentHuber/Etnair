@@ -8,8 +8,7 @@ export default defineEventHandler(async (event) => {
   try {
     // Récupération du token depuis le header
     const headers = getRequestHeaders(event);
-    const authHeader = headers['authorization'];
-
+    const authHeader = headers["authorization"];
 
     if (!authHeader) {
       throw createError({
@@ -34,8 +33,10 @@ export default defineEventHandler(async (event) => {
 
     // Réponse indiquant que l'utilisateur a été supprimé
     return {
-      statusCode: 200,
-      body: { message: "Utilisateur supprimé avec succès" },
+      data: {
+        result: true,
+        body: { message: "Utilisateur supprimé avec succès" },
+      },
     };
   } catch (error) {
     console.error("Erreur lors de la suppression de l'utilisateur:", error);

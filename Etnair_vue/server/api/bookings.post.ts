@@ -59,7 +59,7 @@ export default defineEventHandler(async (event) => {
 
     const token = authHeader.split(" ")[1];
     const decodedToken = jwt.decode(token);
-    
+
     const userId = (decodedToken as { userId: number }).userId;
 
     // Vérification si l'utilisateur existe
@@ -106,7 +106,12 @@ export default defineEventHandler(async (event) => {
       },
     });
 
-    return { newBooking };
+    return {
+      data: {
+        result: true,
+        newBooking,
+      },
+    };
   } catch (error) {
     console.error("Erreur lors de la réservation :", error);
     throw createError({
