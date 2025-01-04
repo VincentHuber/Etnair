@@ -34,9 +34,6 @@ const uploadPicture = (event) => {
 
 // Fonction pour s'inscrire
 const handleSignup = async () => {
-  if (!nickname.value || !mail.value || !password.value || !picture.value) {
-    return;
-  }
 
   //Formatage du nickname avec une majuscule à la première lettre
   const formatNickname =
@@ -75,9 +72,6 @@ const handleSignup = async () => {
 
 // Fonction pour se connecter
 const handleSignin = async () => {
-  if (!mail.value || !password.value) {
-    return;
-  }
 
   //Formatage du mail en minuscule
   const formatMail = mail.value.toLowerCase()
