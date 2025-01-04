@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
     const decodedToken = jwt.decode(token);
 
     // Extraction de l'userId du token
-    const userId = (decodedToken as { userId: number }).userId;
+    const userId = (decodedToken as { userId: string }).userId;
 
     // Récupération de l'adId depuis le corps de la requête
     const { adId } = await readBody(event);

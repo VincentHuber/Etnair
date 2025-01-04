@@ -60,7 +60,7 @@ export default defineEventHandler(async (event) => {
     const token = authHeader.split(" ")[1];
     const decodedToken = jwt.decode(token);
 
-    const userId = (decodedToken as { userId: number }).userId;
+    const userId = (decodedToken as { userId: string }).userId;
 
     // Vérification si l'utilisateur existe
     const renter = await prisma.user.findUnique({ where: { id: userId } });

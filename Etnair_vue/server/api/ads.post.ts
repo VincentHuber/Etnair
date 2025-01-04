@@ -70,7 +70,7 @@ export default defineEventHandler(async (event) => {
     const decodedToken = jwt.decode(token);
 
     // Extraction de l'userId du token
-    const userId = (decodedToken as { userId: number }).userId;
+    const userId = (decodedToken as { userId: string }).userId;
 
     // Vérifie si l'utilisateur existe
     const renter = await userPrisma.findUnique({ where: { id: userId } });

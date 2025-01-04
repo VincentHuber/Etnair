@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
     const decodedToken = jwt.decode(token);
 
     // Extraction de l'userId du token
-    const userId = (decodedToken as { userId: number }).userId;
+    const userId = (decodedToken as { userId: string }).userId;
 
     // Suppression de l'utilisateur dans la base de données
     await prisma.user.delete({

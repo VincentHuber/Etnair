@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 // Route pour trouver tous les utilisateurs
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async () => {
   try {
     // Récupération des utilisateurs avec relations
     const allUsers = await prisma.user.findMany({
