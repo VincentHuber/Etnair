@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
+
 dotenv.config();
 
 const prisma = new PrismaClient();
@@ -31,10 +32,6 @@ export default defineEventHandler(async (event) => {
     // Vérifie si l'email ou le nickname existe déjà
     const existingUser = await prisma.user.findFirst({
       where: { email: body.email },
-      include: {
-        ads: true,
-        bookings: true,
-      },
     });
 
     if (existingUser) {
@@ -73,6 +70,8 @@ export default defineEventHandler(async (event) => {
         email: newUser.email,
         picture: newUser.picture,
         token: token,
+        ads:[],
+        bookings:[],
       },
     };
   } catch (error) {
