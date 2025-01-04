@@ -1,0 +1,17 @@
+@grid-columns: 12;
+@grid-columns-mobile: 6;
+@grid-gutter: 20px;
+
+:root{
+  --grid-gutter : @grid-gutter;
+}
+
+.grid() {
+  display: grid;
+  grid-template-columns: repeat(@grid-columns, 1fr);
+  gap: @grid-gutter;
+
+  @media @mobile {
+    grid-template-columns: repeat(@grid-columns-mobile, 1fr);
+  }
+}

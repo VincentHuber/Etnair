@@ -1,0 +1,181 @@
+.app-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: @black;
+  height: 80 * @px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  &__title {
+    position: absolute;
+    font-weight: @semibold;
+    left: 30 * @px;
+    font-size: 30 * @px;
+    letter-spacing: 0.5 * @px;
+    text-transform: initial;
+  }
+
+  &__search-bar {
+    display: flex;
+    align-items: center;
+    height: 40 * @px;
+    border: solid 1px @white;
+    border-radius: 100 * @px;
+
+    .search-bar {
+      &__search {
+        display: flex;
+        align-items: center;
+
+        .search {
+          &__searchIcon {
+            width: 23 * @px;
+            margin-right: 13 * @px;
+            margin-left: 18 * @px;
+            cursor: pointer;
+          }
+        }
+      }
+      &__destination,
+      &__guests {
+        background-color: transparent;
+        border: none;
+        color: @white;
+        height: 22 * @px;
+        text-align: center;
+
+        &::placeholder {
+          color: @white;
+          font-weight: @light;
+        }
+      }
+
+      &__destination {
+        border-right: solid 1px @white;
+        max-width: 150 * @px;
+        padding-right: 15 * @px;
+      }
+      &__guests {
+        padding: 0 20 * @px;
+        border-left: solid 1px @white;
+        text-align: center;
+      }
+    }
+    .dp__main {
+      font-family: @font-sans-serif;
+      --dp-background-color: transparent;
+      --dp-text-color: @white;
+      --dp-border-color: transparent;
+      --dp-text-color: #fff;
+      --dp-hover-text-color: @white;
+      --dp-border-color-hover: @black;
+
+      ::placeholder {
+        color: @white;
+        opacity: 1;
+      }
+      .dp__theme_light {
+        --dp-primary-color: @dark-grey;
+      }
+
+      //Disparition de l'icône réinitialiser
+      .dp--clear-btn {
+        display: none;
+      }
+
+      //Disparition de l'icône calendrier
+      .dp__input_icon {
+        display: none;
+      }
+
+      //Bordure des dates sélectionnées
+      .dp__range_between {
+        background: rgb(84, 84, 84);
+        color: white;
+        border: none;
+      }
+
+      // Padding interne
+      .dp__input_icon_pad {
+        padding-inline-start: 0;
+        padding-inline-end: 0;
+      }
+    }
+    .dp__input {
+      font-family: @font-sans-serif;
+      font-weight: @light;
+      width: 200 * @px;
+      text-align: center;
+    }
+    .dp__input_focus {
+      border-color: @black;
+    }
+    .dp__action_buttons .dp__action_select {
+      background: @black;
+      &:hover {
+        background: @white;
+        color: @black;
+        border: solid 1px var(--dp-border-color);
+      }
+    }
+    .dp__today {
+      border: 1px solid #8c8c8c;
+    }
+    .dp__action_cancel:hover {
+      border-color: @black;
+    }
+  }
+
+  &__user {
+    position: absolute;
+    right: 30 * @px;
+    display: flex;
+    align-items: center;
+
+    .user {
+      &__rent {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .rent {
+          &__addIcon {
+            padding-top: 2 * @px;
+            width: 13 * @px;
+            margin-right: 8 * @px;
+          }
+
+          &__searchIcon {
+            padding-top: 2 * @px;
+            width: 20 * @px;
+            margin-right: 8 * @px;
+          }
+          &__text-rent {
+            font-weight: @light;
+            border-bottom: 1 * @px solid @white;
+
+            &.no-line {
+              border-bottom: 1 * @px solid transparent;
+            }
+          }
+        }
+      }
+      &__login {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .login {
+          &__userIcon,
+          &__userHoverIcon {
+            margin-left: 10 * @px;
+            width: 30 * @px;
+          }
+        }
+      }
+    }
+  }
+}

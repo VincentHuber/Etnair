@@ -1,0 +1,60 @@
+/* stylelint-disable */
+@SIZES : {
+    mobile-small: 576px;
+    mobile: 813px;
+    tablet: 1024px;
+    desktop: 1200px;
+    large: 1400px;
+    extra-large:1700px;
+  }
+  
+  //-----------------------------------------------
+  // Media queries
+  //-----------------------------------------------
+  @min1: @SIZES[mobile-small];
+  @max1: @SIZES[mobile-small] + 1;
+  @mobile-small: ~'screen and (max-width: @{min1})';
+  @not-mobile-small: ~'screen and (min-width: @{max1})';
+  
+  @min2: @SIZES[mobile];
+  @max2: @SIZES[mobile] + 1;
+  @mobile: ~'screen and (max-width: @{min2})';
+  @not-mobile: ~'screen and (min-width: @{max2})';
+  
+  @min3: @SIZES[tablet];
+  @max3: @SIZES[tablet] + 1;
+  @tablet: ~'screen and (max-width: @{min3})';
+  @not-tablet: ~'screen and (min-width: @{max3})';
+  
+  @min4: @SIZES[desktop];
+  @max4: @SIZES[desktop] + 1;
+  @not-desktop: ~'screen and (max-width: @{min4})';
+  @desktop: ~'screen and (min-width: @{max4})';
+  
+  @min5: @SIZES[large];
+  @max5: @SIZES[large] + 1;
+  @not-large: ~'screen and (max-width: @{min5})';
+  @large: ~'screen and (min-width: @{max5})';
+
+  @min6: @SIZES[extra-large];
+  @max6: @SIZES[extra-large] + 1;
+  @not-extra-large: ~'screen and (max-width: @{min6})';
+  @extra-large: ~'screen and (min-width: @{max6})';
+  
+  
+  //
+  // RESULT :
+  //
+  // @mobile-small: screen and (max-width: 576px);
+  // @not-mobile-small: screen and (min-width: 577px);
+  // @mobile: screen and (max-width: 813px);
+  // @not-mobile: screen and (min-width: 814px);
+  // @tablet: screen and (max-width: 1024px);
+  // @not-tablet: screen and (min-width: 1025px);
+  // @desktop: screen and (min-width: 1201px);
+  // @not-desktop: screen and (max-width: 1200px);
+  // @large: screen and (min-width: 1401px);
+  // @not-large: screen and (max-width: 1400px);
+  // @extra-large: screen and (min-width: 1701px);
+  // @not-extra-large: screen and (max-width: 1700px);
+  //
