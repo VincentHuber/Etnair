@@ -25,6 +25,7 @@ export default defineEventHandler(async (event) => {
       size,
       bookable_dates,
       pictures,
+      features,
     } = body;
 
     if (
@@ -95,6 +96,7 @@ export default defineEventHandler(async (event) => {
         size,
         bookable_dates,
         pictures,
+        features,
         renterId: userId,
       },
     });
