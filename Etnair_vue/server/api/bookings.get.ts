@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 // Route pour trouver toutes les réservations
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async () => {
   try {
     // Récupération des annonces avec les donnés du loueurs
     const allBookings = await prisma.bookings.findMany({
@@ -23,7 +23,10 @@ export default defineEventHandler(async (event) => {
 
     // Retour de la liste des annonces
     return {
-      data: allBookings,
+      data: {
+        result:true,
+        allBookings
+      },
     };
   } catch (error) {
     console.error("Erreur lors de la récupération des réservations:", error);

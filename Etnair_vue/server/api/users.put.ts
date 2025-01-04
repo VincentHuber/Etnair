@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
     const decodedToken = jwt.decode(token);
 
     // Extraction de l'userId du token
-    const userId = (decodedToken as { userId: number }).userId;
+    const userId = (decodedToken as { userId: string }).userId;
 
     // Mise à jour de l'utilisateur en se basant sur l'userId
     const updatedUser = await userPrisma.update({
@@ -40,6 +40,7 @@ export default defineEventHandler(async (event) => {
     // Retour des données mises à jour
     return {
       data: {
+        result: true,
         nickname: updatedUser.nickname,
         email: updatedUser.email,
         picture: updatedUser.picture,

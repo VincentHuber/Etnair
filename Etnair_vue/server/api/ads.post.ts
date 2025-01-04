@@ -25,6 +25,7 @@ export default defineEventHandler(async (event) => {
       size,
       bookable_dates,
       pictures,
+      features,
     } = body;
 
     if (
@@ -70,7 +71,7 @@ export default defineEventHandler(async (event) => {
     const decodedToken = jwt.decode(token);
 
     // Extraction de l'userId du token
-    const userId = (decodedToken as { userId: number }).userId;
+    const userId = (decodedToken as { userId: string }).userId;
 
     // Vérifie si l'utilisateur existe
     const renter = await userPrisma.findUnique({ where: { id: userId } });
@@ -95,6 +96,7 @@ export default defineEventHandler(async (event) => {
         size,
         bookable_dates,
         pictures,
+        features,
         renterId: userId,
       },
     });
@@ -102,6 +104,7 @@ export default defineEventHandler(async (event) => {
     // Réponse structurée au client
     return {
       data: {
+        result:true,
         id: newAd.id,
         title: newAd.title,
         city: newAd.city,

@@ -9,6 +9,7 @@ const isSignUp = ref(false);
 //import du store
 const loginStore = useLoginStore();
 const authStore = useAuthStore();
+const goToStore = useGoToStore()
 
 //Variables des inputs
 const nickname = ref("");
@@ -33,9 +34,6 @@ const uploadPicture = (event) => {
 
 // Fonction pour s'inscrire
 const handleSignup = async () => {
-  if (!nickname.value || !mail.value || !password.value || !picture.value) {
-    return;
-  }
 
   //Formatage du nickname avec une majuscule à la première lettre
   const formatNickname =
@@ -61,7 +59,10 @@ const handleSignup = async () => {
     });
 
     if (response?.data) {
+      navigateTo(goToStore.page)
+      authStore.setUser(response.data)
       authStore.setToken(response.data.token)
+      goToStore.clearGoTo()
       closeLogin()
     }
   } catch (error) {
@@ -71,9 +72,6 @@ const handleSignup = async () => {
 
 // Fonction pour se connecter
 const handleSignin = async () => {
-  if (!mail.value || !password.value) {
-    return;
-  }
 
   //Formatage du mail en minuscule
   const formatMail = mail.value.toLowerCase()
@@ -84,8 +82,6 @@ const handleSignin = async () => {
     password: password.value,
   };
 
-  console.log("userData : ", userData)
-
   try {
     //Envoie l'user dans le back
     const response = await $fetch("/api/auth", {
@@ -94,7 +90,10 @@ const handleSignin = async () => {
     });
 
     if (response?.data) {
+      navigateTo(goToStore.page)
+      authStore.setUser(response.data)
       authStore.setToken(response.data.token)
+      goToStore.clearGoTo()
       closeLogin()
     }
   } catch (error) {

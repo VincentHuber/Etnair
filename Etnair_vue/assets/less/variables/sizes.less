@@ -4,7 +4,8 @@
     mobile: 813px;
     tablet: 1024px;
     desktop: 1200px;
-    large: 1500px;
+    large: 1400px;
+    extra-large:1700px;
   }
   
   //-----------------------------------------------
@@ -34,6 +35,11 @@
   @max5: @SIZES[large] + 1;
   @not-large: ~'screen and (max-width: @{min5})';
   @large: ~'screen and (min-width: @{max5})';
+
+  @min6: @SIZES[extra-large];
+  @max6: @SIZES[extra-large] + 1;
+  @not-extra-large: ~'screen and (max-width: @{min6})';
+  @extra-large: ~'screen and (min-width: @{max6})';
   
   
   //
@@ -47,6 +53,8 @@
   // @not-tablet: screen and (min-width: 1025px);
   // @desktop: screen and (min-width: 1201px);
   // @not-desktop: screen and (max-width: 1200px);
-  // @large: screen and (min-width: 1501px);
-  // @not-large: screen and (max-width: 1500px);
+  // @large: screen and (min-width: 1401px);
+  // @not-large: screen and (max-width: 1400px);
+  // @extra-large: screen and (min-width: 1701px);
+  // @not-extra-large: screen and (max-width: 1700px);
   //

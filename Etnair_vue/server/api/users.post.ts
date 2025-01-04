@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
+
 dotenv.config();
 
 const prisma = new PrismaClient();
@@ -64,10 +65,13 @@ export default defineEventHandler(async (event) => {
     // Retourne les informations de l'utilisateur avec le token
     return {
       data: {
+        result:true,
         nickname: newUser.nickname,
         email: newUser.email,
         picture: newUser.picture,
         token: token,
+        ads:[],
+        bookings:[],
       },
     };
   } catch (error) {

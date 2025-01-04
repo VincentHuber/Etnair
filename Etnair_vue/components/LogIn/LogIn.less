@@ -37,6 +37,7 @@
     margin-bottom: 20 * @px;
     color: black;
     text-align: center;
+    font-size: 22 * @px;
   }
 
   &__nickname,
@@ -46,10 +47,9 @@
     width: 270 * @px;
     border: none;
     background-color: @light-grey;
-    font-size: 12 * @px;
     font-weight: @light;
     text-align: center;
-    border-radius: 5*@px;
+    border-radius: @border-radius;
 
 
     &::placeholder {
@@ -58,45 +58,22 @@
   }
 
   &__nickname {
-    // border-radius: 8 * @px 8 * @px 0 0;
     margin-bottom: 3 * @px;
-
-    // &:focus {
-    //   border-radius: 8 * @px 8 * @px 0 0;
-    // }
   }
 
   &__mail {
-    // border-radius: 8 * @px 8 * @px 0 0;
     margin-bottom: 3 * @px;
-
-    // &.is-signup {
-    //   border-radius: 0 !important;
-
-    //   &:focus {
-    //     border-radius: 0 !important;
-    //   }
-    // }
-
-    // &:focus {
-    //   border-radius: 8 * @px 8 * @px 0 0;
-    // }
   }
 
   &__password {
-    // border-radius: 0 0 8 * @px 8 * @px;
     margin-bottom: 15 * @px;
-
-    // &:focus {
-    //   border-radius: 0 0 8 * @px 8 * @px;
-    // }
   }
 
   &__login {
     background-color: @black !important;
     color: @white !important;
     border: solid 1 * @px @black;
-    margin-bottom: 13 * @px;
+    margin-bottom: 10 * @px;
 
     &:hover {
       background-color: @white !important;
@@ -131,7 +108,7 @@
     margin-bottom: 15 * @px;
     border: solid 1*@px transparent;
     cursor:pointer;
-    border-radius: 5*@px;
+    border-radius: @border-radius;
 
     display: flex;
     justify-content: center;

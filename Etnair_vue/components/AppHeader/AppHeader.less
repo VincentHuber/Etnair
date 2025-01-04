@@ -14,7 +14,7 @@
     font-weight: @semibold;
     left: 30 * @px;
     font-size: 30 * @px;
-    letter-spacing: 0.5*@px;
+    letter-spacing: 0.5 * @px;
     text-transform: initial;
   }
 
@@ -55,12 +55,11 @@
 
       &__destination {
         border-right: solid 1px @white;
-        max-width:150*@px;
+        max-width: 150 * @px;
         padding-right: 15 * @px;
-
       }
       &__guests {
-        padding: 0 15 * @px;
+        padding: 0 20 * @px;
         border-left: solid 1px @white;
         text-align: center;
       }
@@ -93,21 +92,20 @@
       }
 
       //Bordure des dates sélectionnées
-      .dp__range_between{
-        background:rgb(84, 84, 84);
-        color:white;
-        border:none;
+      .dp__range_between {
+        background: rgb(84, 84, 84);
+        color: white;
+        border: none;
       }
 
       // Padding interne
-      .dp__input_icon_pad{
-        padding-inline-start:0;
-        padding-inline-end:0
+      .dp__input_icon_pad {
+        padding-inline-start: 0;
+        padding-inline-end: 0;
       }
     }
     .dp__input {
       font-family: @font-sans-serif;
-      font-size: 12 * @px;
       font-weight: @light;
       width: 200 * @px;
       text-align: center;
@@ -145,8 +143,14 @@
 
         .rent {
           &__addIcon {
-            padding-top:2*@px;
+            padding-top: 2 * @px;
             width: 13 * @px;
+            margin-right: 8 * @px;
+          }
+
+          &__searchIcon {
+            padding-top: 2 * @px;
+            width: 20 * @px;
             margin-right: 8 * @px;
           }
           &__text-rent {

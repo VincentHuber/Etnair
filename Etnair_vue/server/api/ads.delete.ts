@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
     const decodedToken = jwt.decode(token);
 
     // Extraction de l'userId du token
-    const userId = (decodedToken as { userId: number }).userId;
+    const userId = (decodedToken as { userId: string }).userId;
 
     // Récupération de l'adId depuis le corps de la requête
     const { adId } = await readBody(event);
@@ -64,7 +64,10 @@ export default defineEventHandler(async (event) => {
     });
 
     return {
-      message: "Annonce supprimée avec succès",
+      data: {
+        result: true,
+        message: "Annonce supprimée avec succès",
+      },
     };
   } catch (error) {
     console.error("Erreur lors de la suppression de l'annonce:", error);

@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
     const decodedToken = jwt.decode(token);
 
     // Extraction de l'userId du token
-    const userId = (decodedToken as { userId: number }).userId;
+    const userId = (decodedToken as { userId: string }).userId;
 
     const {
       adId,
@@ -90,7 +90,12 @@ export default defineEventHandler(async (event) => {
       },
     });
 
-    return { updatedAd };
+    return {
+      data: {
+        result: true,
+        updatedAd,
+      },
+    };
   } catch (error) {
     console.error("Erreur lors de la mise à jour de l'annonce :", error);
     throw createError({

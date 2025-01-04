@@ -22,7 +22,10 @@ export default defineEventHandler(async (event) => {
 
     // Retour de la liste des annonces
     return {
-      data: allAds,
+      data: {
+        result: true,
+        allAds,
+      },
     };
   } catch (error) {
     console.error("Erreur lors de la récupération des annonces:", error);

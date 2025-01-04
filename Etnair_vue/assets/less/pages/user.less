@@ -1,0 +1,163 @@
+.user {
+  .wrapper();
+
+  * {
+    grid-column: 4/10;
+  }
+
+  @media @tablet {
+    & > * {
+      grid-column: 1 / 12;
+    }
+  }
+
+
+  @media @mobile {
+    & > * {
+      grid-column: 1 / 7;
+    }
+  }
+
+  &__pageTitle {
+    margin-top: 30 * @px;
+  }
+
+  &__infos,
+  &__ads,
+  &__bookings {
+    padding: 23 * @px;
+    background-color: @dark-grey;
+    border-radius: @border-radius;
+    display: flex;
+    flex-direction: row;
+
+    .infos {
+      &__pictureProfile {
+        width: 114 * @px !important;
+        border-radius: 200px;
+        aspect-ratio: 1/1;
+        margin-right: 23 * @px;
+      }
+      &__container {
+        flex-direction: column;
+        width: 100%;
+
+        .container {
+          &__nickname {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .nickname {
+              &__title {
+              }
+              &__text {
+                font-weight: @medium;
+              }
+            }
+          }
+          &__email {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .email {
+              &__title {
+              }
+              &__text {
+                font-weight: @medium;
+              }
+            }
+          }
+          &__password {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 8 * @px;
+            .password {
+              &__title {
+              }
+              &__text {
+                font-weight: @medium;
+              }
+            }
+          }
+          &__button {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+  }
+
+  &__ads {
+    height: 160 * @px;
+    position: relative;
+
+    .ads {
+      &__no-ad {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  &__title-container{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .title-container{
+
+      &__pageTitle{
+        margin-top: 25*@px;
+      }
+
+      //Bouton "Louer ma propriété"
+      &__rent {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .rent {
+          &__addIcon {
+            padding-top:2*@px;
+            width: 13 * @px;
+            margin-right: 8 * @px;
+          }
+
+          &__searchIcon {
+            padding-top:2*@px;
+            width: 20 * @px;
+            margin-right: 8 * @px;
+          }
+          &__text-rent {
+            font-weight: @light;
+            border-bottom: 1 * @px solid @white;
+
+            &.no-line {
+              border-bottom: 1 * @px solid transparent;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__bookings {
+    height: 160 * @px;
+    position: relative;
+    margin-bottom: 70*@px;
+
+    .bookings {
+      &__no-booking {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+}
