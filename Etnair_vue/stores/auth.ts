@@ -5,6 +5,8 @@ export const useAuthStore = defineStore("auth", {
     user: null as object | null,
   }),
 
+  persist:true,
+
   actions: {
 
     //Enregistre un token

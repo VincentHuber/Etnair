@@ -28,6 +28,7 @@
     "nuxt": "^3.14.1592",
     "nuxt-svgo": "^4.0.9",
     "pinia": "^2.3.0",
+    "pinia-plugin-persistedstate": "^4.2.0",
     "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2",

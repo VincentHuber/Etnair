@@ -2,7 +2,12 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
-  modules: ["nuxt-svgo", "@pinia/nuxt", "@nuxtjs/cloudinary"],
+  modules: [
+    "nuxt-svgo",
+    "@pinia/nuxt",
+    "@nuxtjs/cloudinary",
+    "pinia-plugin-persistedstate/nuxt",
+  ],
 
   svgo: {
     defaultImport: "component",
@@ -20,10 +25,9 @@ export default defineNuxtConfig({
       },
     },
   },
-  
+
   cloudinary: {
     cloudName: process.env.CLOUDINARY_CLOUD_NAME,
-    apiKey:  process.env.CLOUDINARY_API_KEY,
+    apiKey: process.env.CLOUDINARY_API_KEY,
   },
 });
-
