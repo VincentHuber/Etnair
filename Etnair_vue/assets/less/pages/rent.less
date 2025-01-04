@@ -1,22 +1,140 @@
-.rent{
-    .wrapper();
-    * {
-        grid-column: 3 / 11;
-      }
-    
-      @media @tablet {
-        & > * {
-          grid-column: 2 / 12;
-        }
-      }
-    
-      @media @mobile {
-        & > * {
-          grid-column: 1 / 7;
-        }
-      }
+.rent {
+  .wrapper();
+  * {
+    grid-column: 3 / 11;
+  }
 
-      &__standfirst{
-        text-align: center;
+  @media @tablet {
+    & > * {
+      grid-column: 2 / 12;
+    }
+  }
+
+  @media @mobile {
+    & > * {
+      grid-column: 1 / 7;
+    }
+  }
+
+  &__title {
+    margin-top: 20 * @px;
+  }
+
+  &__standfirst {
+    text-align: center;
+  }
+
+  // Input de titre
+  &__ad-title-container {
+    margin-top: 32 * @px;
+    .ad-title-container {
+      &__title-input {
+        .input();
+        width: 100%;
+        margin-top: 10 * @px;
+        margin-bottom: 14 * @px;
+        padding: 13 * @px 18 * @px;
       }
+    }
+  }
+
+  // Input des coordonnées
+  &__ad-contact-container {
+    .ad-contact-container {
+      &__street-adress-input {
+        .input();
+        width: 100%;
+        margin-top: 10 * @px;
+        margin-bottom: 10 * @px;
+        padding: 13 * @px 18 * @px;
+      }
+      &__zipcode-city {
+        .zipcode-city {
+          &__zipcode-input {
+            .input();
+            width: 120 * @px;
+            padding: 13 * @px 18 * @px;
+            border-radius: @border-radius 0 0 @border-radius;
+          }
+          &__city-input {
+            .input();
+            width: 300 * @px;
+            margin-left: 10 * @px;
+            border-radius: 0 @border-radius @border-radius 0;
+          }
+        }
+      }
+    }
+  }
+  // Input de la description
+  &__ad-description-container {
+    .ad-description-container {
+      &__input {
+        .input();
+        margin-top: 10 * @px;
+        width: 100%;
+        height: 400 * @px;
+
+        &::placeholder {
+          text-align: left;
+        }
+      }
+    }
+  }
+
+  // Input de la superficie et nombre de pièces
+  &__ad-details-container {
+    display: flex;
+    .ad-details-container {
+      &__size {
+        .size {
+          &__title {
+            margin-right: 24 * @px;
+            .title {
+              &__square {
+                font-size: 10 * @px;
+                line-height: 0;
+              }
+            }
+          }
+          &__input {
+            .input();
+            margin-top: 10 * @px;
+            width: 110 * @px;
+          }
+        }
+      }
+      &__nb-of-rooms {
+        .nb-of-rooms {
+          &__input {
+            .input();
+            margin-top: 10 * @px;
+            width: 110 * @px;
+          }
+        }
+      }
+    }
+  }
+
+  // Input du nombre d'invités
+  &__ad-guests-container {
+    .ad-guests-container {
+      &__input {
+        .input();
+        margin-top: 10 * @px;
+        width: 110 * @px;
+      }
+    }
+  }
+
+  // Input du nombre d'invités
+  &__ad-price-container {
+    .ad-price-container {
+      &__input {
+        .input();
+        margin-top: 10 * @px;
+        width: 110 * @px;
+      }
+    }
+  }
 }
