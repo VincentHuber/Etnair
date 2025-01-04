@@ -90,13 +90,13 @@ onMounted(() => {
         <input
           v-model="zipcode"
           type="int"
-          class="zipcode-city__input"
+          class="zipcode-city__zipcode-input"
           placeholder="Code postal"
         />
         <input
           v-model="city"
           type="text"
-          class="zipcode-city__input"
+          class="zipcode-city__city-input"
           placeholder="Ville"
         />
       </div>
@@ -105,7 +105,7 @@ onMounted(() => {
     <!-- Input de la description -->
     <div class="rent__ad-description-container">
       <h4 class="ad-description-container__title">Description</h4>
-      <input
+      <textarea
         v-model="description"
         type="text"
         class="ad-description-container__input"
@@ -117,7 +117,7 @@ onMounted(() => {
     <div class="rent__ad-details-container">
       <div class="ad-details-container__size">
         <h4 class="size__title">
-          Superficie en m<span class="title__square">2</span>
+          Superficie en m<sup class="title__square">2</sup>
         </h4>
         <input v-model="size" type="int" class="size__input" />
       </div>
@@ -199,10 +199,9 @@ onMounted(() => {
       <p>En JPG ou PNG uniquement.</p>
     </div>
 
-     <!-- Input des features -->
-     <div class="rent__ad-price-container">
+    <!-- Input des features -->
+    <div class="rent__ad-price-container">
       <h4 class="ad-price-container__title">Spécificités</h4>
-      
     </div>
 
     <NuxtLink class="cta-primary">Louer ma propriété</NuxtLink>
