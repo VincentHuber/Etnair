@@ -13,7 +13,6 @@ const authStore = useAuthStore();
 //Import des icons
 import addIcon from "../../assets/icons/add.svg";
 import UploadIcon from "../../../assets/icons/upload.svg";
-import ValidateIcon from "../../../assets/icons/validate.svg";
 import { featuresInfos } from "@/utils/featuresInfos";
 
 //Variable des inputs
@@ -27,7 +26,7 @@ const number_of_guests = ref(null);
 const number_of_rooms = ref(null);
 const size = ref(null);
 const bookable_dates = ref(null);
-const pictures = ref(null);
+const pictures = ref([]);
 const features = ref([]);
 const isFeature = ref(false);
 
@@ -42,9 +41,20 @@ const addFeature = (newFeature) => {
   }
 };
 
+//Efface la photo
+const erasePicture = (undesiredPicture) => {
+  if (pictures.value.includes(undesiredPicture)) {
+    pictures.value = pictures.value.filter(
+      (picture) => picture != undesiredPicture
+    );
+    console.log("pictures.value : ", pictures.value);
+  }
+};
+
 // Enregistre le lien de l'image uploadée
 const uploadPicture = (event) => {
-  pictures.value = event.info.secure_url;
+  const imageUrl = event?.info?.secure_url;
+  imageUrl && pictures.value.push(imageUrl);
 };
 
 // Fonction pour vérifier l'accès à la page
@@ -193,7 +203,6 @@ onMounted(() => {
         @success="uploadPicture"
       >
         <button
-          v-if="!pictures"
           type="button"
           class="ad-picture-container__upload"
           @click="open"
@@ -201,17 +210,26 @@ onMounted(() => {
           Télécharger des photos
           <UploadIcon class="upload__uploadIcon" />
         </button>
-        <button
-          v-else
-          type="button"
-          class="ad-picture-container__upload"
-          @click="open"
-        >
-          Photo de profil téléchargée
-          <ValidateIcon class="upload__validateIcon" />
-        </button>
       </CldUploadWidget>
       <p class="ad-picture-container__details">En JPG ou PNG uniquement.</p>
+    </div>
+
+    <!-- Affiche les photos -->
+    <div class="rent__pictures">
+      <div v-for="(picture, index) in pictures" class="pictures__container">
+        <CldImage
+          :key="index"
+          :src="picture"
+          alt="Photos de la propriété"
+          class="container__item"
+        />
+        <button
+          class="cta-secondary container__button"
+          @click="erasePicture(picture)"
+        >
+          Supprimer
+        </button>
+      </div>
     </div>
 
     <!-- Input des features -->
