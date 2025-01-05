@@ -201,4 +201,56 @@
       }
     }
   }
+
+  &__ad-picture-container {
+    .ad-picture-container {
+      &__upload {
+        background-color: @white;
+        color: @black;
+        padding: 20 * @px 20 * @px;
+        height: 37 * @px;
+        border: none;
+        margin-top: 10 * @px;
+        margin-bottom: 4 * @px;
+        border: solid 1 * @px transparent;
+        cursor: pointer;
+        border-radius: @border-radius;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+          background-color: @black;
+          color: @white;
+          border: solid 1 * @px @white;
+        }
+        .upload__uploadIcon {
+          position: relative;
+          margin-left: 10 * @px;
+          color: inherit;
+          width: 18 * @px;
+
+          &:hover {
+            color: inherit;
+          }
+        }
+
+        .upload__validateIcon {
+          position: relative;
+          margin-left: 6 * @px;
+          color: inherit;
+          width: 16 * @px;
+
+          &:hover {
+            color: inherit;
+          }
+        }
+      }
+      &__details {
+        color: @medium-light-grey;
+        font-size: 12 * @px;
+      }
+    }
+  }
 }
