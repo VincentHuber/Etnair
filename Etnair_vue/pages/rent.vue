@@ -172,7 +172,7 @@ onMounted(() => {
 
     <!-- Input des photos -->
     <div class="rent__ad-picture-container">
-      <h4 class="ad-picture-container__title">Photo de votre bien</h4>
+      <h4 class="ad-picture-container__title">Photos de votre bien</h4>
       <CldUploadWidget
         v-slot="{ open }"
         uploadPreset="etnair_preset"
@@ -185,7 +185,7 @@ onMounted(() => {
           class="ad-picture-container__upload"
           @click="open"
         >
-          Télécharger une photo de profil
+          Télécharger des photos
           <UploadIcon class="upload__uploadIcon" />
         </button>
         <button
@@ -198,7 +198,7 @@ onMounted(() => {
           <ValidateIcon class="upload__validateIcon" />
         </button>
       </CldUploadWidget>
-      <p>En JPG ou PNG uniquement.</p>
+      <p class="ad-picture-container__details">En JPG ou PNG uniquement.</p>
     </div>
 
     <!-- Input des features -->
