@@ -14,13 +14,7 @@ const authStore = useAuthStore();
 import addIcon from "../../assets/icons/add.svg";
 import UploadIcon from "../../../assets/icons/upload.svg";
 import ValidateIcon from "../../../assets/icons/validate.svg";
-import BbqIcon from "../../../assets/icons/bbq.svg";
-import GardenIcon from "../../../assets/icons/garden.svg";
-import HeatingIcon from "../../../assets/icons/heating.svg";
-import ParkingIcon from "../../../assets/icons/parking.svg";
-import PoolIcon from "../../../assets/icons/pool.svg";
-import TvIcon from "../../../assets/icons/tv.svg";
-import WifiIcon from "../../../assets/icons/wifi.svg";
+import { featuresInfos } from "@/utils/featuresInfos";
 
 //Variable des inputs
 const title = ref(null);
@@ -35,6 +29,18 @@ const size = ref(null);
 const bookable_dates = ref(null);
 const pictures = ref(null);
 const features = ref([]);
+const isFeature = ref(false);
+
+//Ajoute la feature ou supprime si elle est déjà sélectionné
+const addFeature = (newFeature) => {
+  if (features.value.includes(newFeature)) {
+    features.value = features.value.filter((feature) => feature != newFeature);
+    isFeature.value = false;
+  } else {
+    features.value.push(newFeature);
+    isFeature.value = true;
+  }
+};
 
 // Enregistre le lien de l'image uploadée
 const uploadPicture = (event) => {
@@ -57,44 +63,6 @@ const formatTravelDays = (dates) => {
   }
   return format(dates, "dd/MM/yyyy", { locale: fr });
 };
-
-const featuresInfos = [
-  {
-    id: 1,
-    icon: BbqIcon,
-    text: "Barbecue",
-  },
-  {
-    id: 2,
-    icon: GardenIcon,
-    text: "Jardin",
-  },
-  {
-    id: 3,
-    icon: HeatingIcon,
-    text: "Climatiseur",
-  },
-  {
-    id: 4,
-    icon: ParkingIcon,
-    text: "Parking gratuit",
-  },
-  {
-    id: 5,
-    icon: PoolIcon,
-    text: "Piscine",
-  },
-  {
-    id: 6,
-    icon: TvIcon,
-    text: "Télévision",
-  },
-  {
-    id: 7,
-    icon: WifiIcon,
-    text: "Wifi",
-  },
-];
 
 onMounted(() => {
   accessPage();
@@ -255,6 +223,8 @@ onMounted(() => {
           v-for="feature in featuresInfos"
           :key="feature.id"
           class="content__features"
+          @click="addFeature(feature.text)"
+          :class="{ 'is-active': features.includes(feature.text) }"
         >
           <component :is="feature.icon" class="features__icon" />
           <span class="features__text">{{ feature.text }}</span>
@@ -262,7 +232,6 @@ onMounted(() => {
       </div>
     </div>
 
-    <NuxtLink class="cta-primary rent__validate"
-      >Louer ma propriété</NuxtLink>
+    <NuxtLink class="cta-primary rent__validate">Louer ma propriété</NuxtLink>
   </div>
 </template>
