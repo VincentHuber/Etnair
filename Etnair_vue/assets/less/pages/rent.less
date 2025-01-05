@@ -172,12 +172,12 @@
           &__button {
             position: relative;
             margin-left: 10 * @px;
-            height: 48 * @px;
+            height: 37 * @px;
             aspect-ratio: 1/1;
             top: -2 * @px;
             background-color: @black;
             border: solid 1 * @px @white;
-            border-radius: @border-radius;
+            border-radius: 100px;
             cursor: pointer;
 
             &:hover {
@@ -192,7 +192,7 @@
               &__addIcon {
                 position: relative;
                 top: 1 * @px;
-                width: 20 * @px;
+                width: 15 * @px;
                 color: @white;
               }
             }
@@ -250,7 +250,62 @@
       &__details {
         color: @medium-light-grey;
         font-size: 12 * @px;
+        margin-bottom: 14*@px;
       }
     }
+  }
+
+
+  &__ad-features-container {
+    .ad-features-container {
+      &__title {
+        margin-bottom: 10 * @px;
+      }
+
+      &__content {
+        flex-wrap: wrap;
+        gap: 13 * @px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        .content {
+          &__features {
+            background-color: @black;
+            border: solid 1 * @px @white;
+            border-radius: 100 * @px;
+            display:flex;
+            align-items: center;
+            cursor: pointer;
+
+            padding: 10 * @px 25 * @px;
+
+            &:hover {
+              background-color: @white;
+              color:@black;
+              border: solid 1 * @px @black;
+              border-radius: 100 * @px;
+            }
+
+            .features {
+              &__icon {
+                margin-right: 10 * @px;
+                width: 21 * @px;
+              }
+              &__text {
+                font-weight: @light;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__validate {
+    margin-top:24*@px;
+    margin-bottom: 54 * @px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

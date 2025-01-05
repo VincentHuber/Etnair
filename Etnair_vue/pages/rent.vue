@@ -14,6 +14,13 @@ const authStore = useAuthStore();
 import addIcon from "../../assets/icons/add.svg";
 import UploadIcon from "../../../assets/icons/upload.svg";
 import ValidateIcon from "../../../assets/icons/validate.svg";
+import BbqIcon from "../../../assets/icons/bbq.svg";
+import GardenIcon from "../../../assets/icons/garden.svg";
+import HeatingIcon from "../../../assets/icons/heating.svg";
+import ParkingIcon from "../../../assets/icons/parking.svg";
+import PoolIcon from "../../../assets/icons/pool.svg";
+import TvIcon from "../../../assets/icons/tv.svg";
+import WifiIcon from "../../../assets/icons/wifi.svg";
 
 //Variable des inputs
 const title = ref(null);
@@ -50,6 +57,44 @@ const formatTravelDays = (dates) => {
   }
   return format(dates, "dd/MM/yyyy", { locale: fr });
 };
+
+const featuresInfos = [
+  {
+    id: 1,
+    icon: BbqIcon,
+    text: "Barbecue",
+  },
+  {
+    id: 2,
+    icon: GardenIcon,
+    text: "Jardin",
+  },
+  {
+    id: 3,
+    icon: HeatingIcon,
+    text: "Climatiseur",
+  },
+  {
+    id: 4,
+    icon: ParkingIcon,
+    text: "Parking gratuit",
+  },
+  {
+    id: 5,
+    icon: PoolIcon,
+    text: "Piscine",
+  },
+  {
+    id: 6,
+    icon: TvIcon,
+    text: "Télévision",
+  },
+  {
+    id: 7,
+    icon: WifiIcon,
+    text: "Wifi",
+  },
+];
 
 onMounted(() => {
   accessPage();
@@ -172,7 +217,7 @@ onMounted(() => {
 
     <!-- Input des photos -->
     <div class="rent__ad-picture-container">
-      <h4 class="ad-picture-container__title">Photos de votre bien</h4>
+      <h4 class="ad-picture-container__title">Photos de votre propriété</h4>
       <CldUploadWidget
         v-slot="{ open }"
         uploadPreset="etnair_preset"
@@ -202,10 +247,22 @@ onMounted(() => {
     </div>
 
     <!-- Input des features -->
-    <div class="rent__ad-price-container">
-      <h4 class="ad-price-container__title">Spécificités</h4>
+    <div class="rent__ad-features-container">
+      <h4 class="ad-features-container__title">Spécificités</h4>
+
+      <div class="ad-features-container__content">
+        <button
+          v-for="feature in featuresInfos"
+          :key="feature.id"
+          class="content__features"
+        >
+          <component :is="feature.icon" class="features__icon" />
+          <span class="features__text">{{ feature.text }}</span>
+        </button>
+      </div>
     </div>
 
-    <NuxtLink class="cta-primary">Louer ma propriété</NuxtLink>
+    <NuxtLink class="cta-primary rent__validate"
+      >Louer ma propriété</NuxtLink>
   </div>
 </template>
