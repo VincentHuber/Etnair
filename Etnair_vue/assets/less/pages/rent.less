@@ -235,26 +235,50 @@
             color: inherit;
           }
         }
-
-        .upload__validateIcon {
-          position: relative;
-          margin-left: 6 * @px;
-          color: inherit;
-          width: 16 * @px;
-
-          &:hover {
-            color: inherit;
-          }
-        }
       }
       &__details {
         color: @medium-light-grey;
         font-size: 12 * @px;
-        margin-bottom: 14*@px;
+        margin-bottom: 14 * @px;
       }
     }
   }
 
+  &__pictures {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10 * @px;
+    row-gap : 15*@px;
+    margin-bottom:14*@px;
+
+    .pictures {
+      &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center! important;
+        .container {
+          &__item {
+            display: flex;
+
+            width: auto !important;
+            height: 200 * @px !important;
+            object-fit: contain;
+          }
+
+          &__button {
+            margin-top:5*@px;
+
+            .button {
+              &__close {
+                width: 15 * @px;
+                background-color: black;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 
   &__ad-features-container {
     .ad-features-container {
@@ -274,18 +298,19 @@
             background-color: @black;
             border: solid 1 * @px @white;
             border-radius: 100 * @px;
-            display:flex;
+            display: flex;
             align-items: center;
             cursor: pointer;
 
             padding: 10 * @px 25 * @px;
 
-            &:hover, &.is-active {
+            &:hover,
+            &.is-active {
               background-color: @white;
-              color:@black;
+              color: @black;
               border: solid 1 * @px @black;
             }
-  
+
             .features {
               &__icon {
                 margin-right: 10 * @px;
@@ -302,8 +327,8 @@
   }
 
   &__validate {
-    margin-top:35*@px;
-    margin-bottom: 60* @px;
+    margin-top: 35 * @px;
+    margin-bottom: 60 * @px;
     margin-left: auto;
     margin-right: auto;
   }
