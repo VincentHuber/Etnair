@@ -140,17 +140,64 @@
 
   // Input de la disponibilité
   &__ad-bookables-container {
-    .dp__main {
-      width: 270 * @px;
-      .dp__input {
-        margin-top: 10 * @px;
-        .input();
-        text-align: center;
-        font-family: @font-sans-serif;
-        font-weight: @light !important;
-      }
-      .dp--clear-btn, .dp__input_icon {
-        top:34*@px;
+    .ad-bookables-container {
+      &__content {
+        // CSS pour les dates
+        .dp__main {
+          width: 270 * @px;
+          .dp__input {
+            margin-top: 10 * @px;
+            .input();
+            text-align: center;
+            font-family: @font-sans-serif;
+            font-weight: @light !important;
+          }
+          .dp--clear-btn,
+          .dp__input_icon {
+            top: 34 * @px;
+          }
+        }
+        .dp__theme_light {
+          --dp-primary-color: @dark-grey;
+          --dp-range-between-dates-background-color: @dark-grey;
+          --dp-range-between-border-color: @dark-grey;
+          --dp-hover-text-color: @dark-grey;
+          --dp-range-between-dates-text-color: @white;
+        }
+
+        display: flex;
+        align-items: center;
+
+        .content {
+          &__button {
+            position: relative;
+            margin-left: 10 * @px;
+            height: 48 * @px;
+            aspect-ratio: 1/1;
+            top: -2 * @px;
+            background-color: @black;
+            border: solid 1 * @px @white;
+            border-radius: @border-radius;
+            cursor: pointer;
+
+            &:hover {
+              background-color: @white;
+
+              & > .button__addIcon {
+                color: black;
+              }
+            }
+
+            .button {
+              &__addIcon {
+                position: relative;
+                top: 1 * @px;
+                width: 20 * @px;
+                color: @white;
+              }
+            }
+          }
+        }
       }
     }
   }
