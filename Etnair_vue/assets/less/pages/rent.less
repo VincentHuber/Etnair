@@ -140,18 +140,196 @@
 
   // Input de la disponibilité
   &__ad-bookables-container {
-    .dp__main {
-      width: 270 * @px;
-      .dp__input {
-        margin-top: 10 * @px;
-        .input();
-        text-align: center;
-        font-family: @font-sans-serif;
-        font-weight: @light !important;
-      }
-      .dp--clear-btn, .dp__input_icon {
-        top:34*@px;
+    .ad-bookables-container {
+      &__content {
+        // CSS pour les dates
+        .dp__main {
+          width: 270 * @px;
+          .dp__input {
+            margin-top: 10 * @px;
+            .input();
+            text-align: center;
+            font-family: @font-sans-serif;
+            font-weight: @light !important;
+          }
+          .dp--clear-btn,
+          .dp__input_icon {
+            top: 34 * @px;
+          }
+        }
+        .dp__theme_light {
+          --dp-primary-color: @dark-grey;
+          --dp-range-between-dates-background-color: @dark-grey;
+          --dp-range-between-border-color: @dark-grey;
+          --dp-hover-text-color: @dark-grey;
+          --dp-range-between-dates-text-color: @white;
+        }
+
+        display: flex;
+        align-items: center;
+
+        .content {
+          &__button {
+            position: relative;
+            margin-left: 10 * @px;
+            height: 37 * @px;
+            aspect-ratio: 1/1;
+            top: -2 * @px;
+            background-color: @black;
+            border: solid 1 * @px @white;
+            border-radius: 100px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: @white;
+
+              & > .button__addIcon {
+                color: black;
+              }
+            }
+
+            .button {
+              &__addIcon {
+                position: relative;
+                top: 1 * @px;
+                width: 15 * @px;
+                color: @white;
+              }
+            }
+          }
+        }
       }
     }
+  }
+
+  &__ad-picture-container {
+    .ad-picture-container {
+      &__upload {
+        background-color: @white;
+        color: @black;
+        padding: 20 * @px 20 * @px;
+        height: 37 * @px;
+        border: none;
+        margin-top: 10 * @px;
+        margin-bottom: 4 * @px;
+        border: solid 1 * @px transparent;
+        cursor: pointer;
+        border-radius: @border-radius;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+          background-color: @black;
+          color: @white;
+          border: solid 1 * @px @white;
+        }
+        .upload__uploadIcon {
+          position: relative;
+          margin-left: 10 * @px;
+          color: inherit;
+          width: 18 * @px;
+
+          &:hover {
+            color: inherit;
+          }
+        }
+      }
+      &__details {
+        color: @medium-light-grey;
+        font-size: 12 * @px;
+        margin-bottom: 14 * @px;
+      }
+    }
+  }
+
+  &__pictures {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10 * @px;
+    row-gap : 15*@px;
+    margin-bottom:14*@px;
+
+    .pictures {
+      &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center! important;
+        .container {
+          &__item {
+            display: flex;
+
+            width: auto !important;
+            height: 200 * @px !important;
+            object-fit: contain;
+          }
+
+          &__button {
+            margin-top:5*@px;
+
+            .button {
+              &__close {
+                width: 15 * @px;
+                background-color: black;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__ad-features-container {
+    .ad-features-container {
+      &__title {
+        margin-bottom: 10 * @px;
+      }
+
+      &__content {
+        flex-wrap: wrap;
+        gap: 13 * @px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        .content {
+          &__features {
+            background-color: @black;
+            border: solid 1 * @px @white;
+            border-radius: 100 * @px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            padding: 10 * @px 25 * @px;
+
+            &:hover,
+            &.is-active {
+              background-color: @white;
+              color: @black;
+              border: solid 1 * @px @black;
+            }
+
+            .features {
+              &__icon {
+                margin-right: 10 * @px;
+                width: 21 * @px;
+              }
+              &__text {
+                font-weight: @light;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__validate {
+    margin-top: 35 * @px;
+    margin-bottom: 60 * @px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

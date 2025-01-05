@@ -8,6 +8,7 @@
   top: 0;
   left: 0;
   right: 0;
+  z-index: 9999;
 
   &__title {
     position: absolute;
@@ -54,11 +55,13 @@
       }
 
       &__destination {
+        font-weight:@light;
         border-right: solid 1px @white;
         max-width: 150 * @px;
         padding-right: 15 * @px;
       }
       &__guests {
+        font-weight:@light;
         padding: 0 20 * @px;
         border-left: solid 1px @white;
         text-align: center;
@@ -66,11 +69,9 @@
     }
     .dp__main {
       font-family: @font-sans-serif;
-      --dp-background-color: transparent;
-      --dp-text-color: @white;
-      --dp-border-color: transparent;
+      --dp-background-color: @black;
+      --dp-border-color: @black;
       --dp-text-color: #fff;
-      --dp-hover-text-color: @white;
       --dp-border-color-hover: @black;
 
       ::placeholder {
@@ -81,19 +82,14 @@
         --dp-primary-color: @dark-grey;
       }
 
-      //Disparition de l'icône réinitialiser
-      .dp--clear-btn {
-        display: none;
-      }
-
-      //Disparition de l'icône calendrier
-      .dp__input_icon {
+      //Disparition des icôns réinitialiser et calendrier
+      .dp--clear-btn, .dp__input_icon {
         display: none;
       }
 
       //Bordure des dates sélectionnées
       .dp__range_between {
-        background: rgb(84, 84, 84);
+        background:@dark-grey;
         color: white;
         border: none;
       }
@@ -107,17 +103,17 @@
     .dp__input {
       font-family: @font-sans-serif;
       font-weight: @light;
-      width: 200 * @px;
+      width: 230 * @px;
       text-align: center;
     }
     .dp__input_focus {
-      border-color: @black;
+      border-color: @dark-grey;
     }
     .dp__action_buttons .dp__action_select {
-      background: @black;
+      background: @dark-grey;
       &:hover {
         background: @white;
-        color: @black;
+        color: @dark-grey;
         border: solid 1px var(--dp-border-color);
       }
     }
@@ -125,7 +121,7 @@
       border: 1px solid #8c8c8c;
     }
     .dp__action_cancel:hover {
-      border-color: @black;
+      border-color: @dark-grey;
     }
   }
 

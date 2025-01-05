@@ -58,9 +58,7 @@ export default defineEventHandler(async (event) => {
     });
 
     // Crée un token JWT
-    const token = jwt.sign({ userId: newUser.id }, tokenSecret, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign({ userId: newUser.id }, tokenSecret);
 
     // Retourne les informations de l'utilisateur avec le token
     return {
