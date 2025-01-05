@@ -54,11 +54,13 @@
       }
 
       &__destination {
+        font-weight:@light;
         border-right: solid 1px @white;
         max-width: 150 * @px;
         padding-right: 15 * @px;
       }
       &__guests {
+        font-weight:@light;
         padding: 0 20 * @px;
         border-left: solid 1px @white;
         text-align: center;
@@ -71,7 +73,7 @@
       --dp-border-color: transparent;
       --dp-text-color: #fff;
       --dp-hover-text-color: @white;
-      --dp-border-color-hover: @black;
+      --dp-border-color-hover: @dark-grey;
 
       ::placeholder {
         color: @white;
@@ -93,7 +95,7 @@
 
       //Bordure des dates sélectionnées
       .dp__range_between {
-        background: rgb(84, 84, 84);
+        background:@dark-grey;
         color: white;
         border: none;
       }
@@ -111,13 +113,13 @@
       text-align: center;
     }
     .dp__input_focus {
-      border-color: @black;
+      border-color: @dark-grey;
     }
     .dp__action_buttons .dp__action_select {
-      background: @black;
+      background: @dark-grey;
       &:hover {
         background: @white;
-        color: @black;
+        color: @dark-grey;
         border: solid 1px var(--dp-border-color);
       }
     }
@@ -125,7 +127,7 @@
       border: 1px solid #8c8c8c;
     }
     .dp__action_cancel:hover {
-      border-color: @black;
+      border-color: @dark-grey;
     }
   }
 
