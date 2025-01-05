@@ -153,19 +153,21 @@ onMounted(() => {
       <h4 class="ad-price-container__title">
         Début et fin de la disponibilité
       </h4>
-      <Datepicker
-        class="ad-bookables-container__bookables"
-        v-model="bookable_dates"
-        :enable-time-picker="false"
-        :format="formatTravelDays"
-        :format-locale="fr"
-        select-text="Sélectionner"
-        cancel-text="Fermer"
-        range
-      />
-      <button class="ad-bookables-container__button">
-        <addIcon class="button__addIcon" />
-      </button>
+      <div class="ad-bookables-container__content">
+        <Datepicker
+          class="content__bookables"
+          v-model="bookable_dates"
+          :enable-time-picker="false"
+          :format="formatTravelDays"
+          :format-locale="fr"
+          select-text="Sélectionner"
+          cancel-text="Fermer"
+          range
+        />
+        <button class="content__button">
+          <addIcon class="button__addIcon" />
+        </button>
+      </div>
     </div>
 
     <!-- Input des photos -->
