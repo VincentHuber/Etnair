@@ -103,7 +103,8 @@ const handleRenting = async () => {
     });
 
     if (response?.data) {
-      console.log("response.data : ", response.data);
+      navigateTo('/user')
+      
     }
   } catch (error) {
     console.error("Erreur lors de la création de l'annonce", error);
