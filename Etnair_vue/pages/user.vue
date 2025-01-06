@@ -97,7 +97,10 @@ onMounted(() => {
         <div class="ads__description">
           <h3 class="description__title">{{ ad.title }}</h3>
           <p class="description__address">
-            {{ ad.street_adress }} ({{ ad.zipcode.toString() }})
+            {{ ad.street_adress }}
+          </p>
+          <p class="description__address">
+            {{ ad.city }} ({{ ad.zipcode.toString() }})
           </p>
           <NuxtLink class="cta-secondary description__button"
             >Modifier mon annonce</NuxtLink
