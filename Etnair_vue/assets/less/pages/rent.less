@@ -1,5 +1,4 @@
 .rent {
-  .wrapper();
   * {
     grid-column: 3 / 11;
   }
@@ -259,7 +258,7 @@
         .container {
           &__item {
             display: flex;
-
+            border-radius: @border-radius;
             width: auto !important;
             height: 200 * @px !important;
             object-fit: contain;
@@ -301,7 +300,6 @@
             display: flex;
             align-items: center;
             cursor: pointer;
-
             padding: 10 * @px 25 * @px;
 
             &:hover,
