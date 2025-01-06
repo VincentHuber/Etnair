@@ -25,7 +25,7 @@
   &__bookings {
     padding: 23 * @px;
     background-color: @dark-grey;
-    border-radius: @border-radius;
+    border-radius:10*@px;
     display: flex;
     flex-direction: row;
 
@@ -89,10 +89,32 @@
   }
 
   &__ads {
-    height: 160 * @px;
     position: relative;
+    padding:15*@px;
+    display: flex;
+    align-items: center;
 
     .ads {
+
+      &__picture{
+        border-radius: 10*@px;
+        width: 150 * @px !important;
+        height: 150*@px !important;
+        border-radius: 10*@px;
+        margin-right: 23 * @px;
+      }
+
+      &__description{
+        .description{
+          &__address{
+          }
+          &__button{
+            border:solid 1px red !important;
+            padding-top: 18 * @px !important;
+          }
+        }
+      }
+
       &__no-ad {
         position: absolute;
         top: 50%;
