@@ -1,37 +1,37 @@
 <script setup>
-import '../assets/less/pages/index.less'
-const ads = ref(null);
-ads.value = getAds();
+import "../assets/less/pages/index.less";
 
-async function getAds() {
-  return await $fetch("/api/ads");
-}
+const {data} = useFetch("/api/ads");
+
+onMounted(() => {
+  console.log("data Ads : ", data.value);
+});
 </script>
 
 <template>
   <div class="content wrapper is-grid">
-    <h1 class="content__titre">Ventalon en Cévennes</h1>
-    <h2 class="content__titre">Mes informations</h2>
-    <h3 class="content__titre">
-      • 5 pièces • 119m2 • 3 personnes • Jardin • Tossiat (01250)
-    </h3>
-    <p>
-      À louer à Tossiat, charmante maison de 119 m² idéale pour 3 personnes,
-      composée de 5 pièces, dont un séjour lumineux, une cuisine équipée et 2 ou
-      3 chambres selon vos besoins. Cette maison offre un jardin privatif
-      parfait pour la détente, une vue imprenable sur les montagnes, ainsi qu’un
-      accès Wi-Fi inclus.
-    <br/>
-    <br/>
-      Située dans un environnement paisible et verdoyant,
-      elle allie la tranquillité du village à la proximité des commodités
-      locales, idéale pour les amoureux de la nature et les activités de plein
-      air. Disponible dès maintenant, contactez-nous pour une visite et
-      découvrez cette opportunité unique !
-    </p>
-    <NuxtLink class="cta-primary">Se connecter</NuxtLink>
-    <NuxtLink class="cta-primary-outline">Se connecter</NuxtLink>
-    <NuxtLink class="cta-secondary">Modifier vos informations</NuxtLink>
-  </div>
+    <h1> HELLO</h1>
+    
+    <div v-if="data.allAds">
+    <div v-for="(ad, key) in data.allAds" :key="key">
 
+     
+      <p>{{ ad.price.toString() }}€ par nuit</p>
+      <p>
+        {{ ad.size.toString() }}m2 •
+        {{ ad.number_of_rooms.toString() }} pièces •
+        {{ ad.number_of_guests.toString() }} personnes•
+        {{ ad.city}} ({{ad.zipcode.toString()}})
+      </p>
+      <CldImage
+          :src="ad.pictures[0]"
+          alt="Photos de la propriété"
+    
+        />
+
+    </div>
+    </div>
+
+    <Nuxtlink class="cta-primary">En savoir plus</Nuxtlink>
+  </div>
 </template>
