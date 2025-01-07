@@ -19,7 +19,7 @@ const accessPage = () => {
 
 //Lien pour ajouter une annonce
 const goToAddRent = () => {
-    navigateTo("/rent");
+  navigateTo("/rent");
 };
 
 //Fonction pour se déconnecter
@@ -31,6 +31,7 @@ const loggingOut = () => {
 
 onMounted(() => {
   accessPage();
+  console.log("authStore.user : ", authStore.user);
 });
 </script>
 
@@ -81,8 +82,31 @@ onMounted(() => {
         </p>
       </NuxtLink>
     </div>
-    <div class="user__ads">
-      <p class="ads__no-ad">Aucune annnonce</p>
+
+    <div v-if="authStore.user.ads.length === 0" class="user__no-ad">
+      <p class="no-ad__title">Aucune annonce</p>
+    </div>
+
+    <div v-else>
+      <div v-for="ad in authStore.user.ads" :key="ad.id" class="user__ads">
+        <CldImage
+          :src="ad.pictures[0]"
+          alt="Photos de la propriété"
+          class="ads__picture"
+        />
+        <div class="ads__description">
+          <h3 class="description__title">{{ ad.title }}</h3>
+          <p class="description__address">
+            {{ ad.street_adress }}
+          </p>
+          <p class="description__address">
+            {{ ad.city }} ({{ ad.zipcode.toString() }})
+          </p>
+          <NuxtLink class="cta-secondary description__button"
+            >Modifier mon annonce</NuxtLink
+          >
+        </div>
+      </div>
     </div>
 
     <!-- Bookings informations -->

@@ -1,6 +1,4 @@
 .user {
-  .wrapper();
-
   * {
     grid-column: 4/10;
   }
@@ -10,7 +8,6 @@
       grid-column: 1 / 12;
     }
   }
-
 
   @media @mobile {
     & > * {
@@ -24,10 +21,11 @@
 
   &__infos,
   &__ads,
-  &__bookings {
+  &__bookings,
+  &__no-ad {
     padding: 23 * @px;
     background-color: @dark-grey;
-    border-radius: @border-radius;
+    border-radius: 15 * @px;
     display: flex;
     flex-direction: row;
 
@@ -91,11 +89,44 @@
   }
 
   &__ads {
-    height: 160 * @px;
     position: relative;
+    padding: 15 * @px;
 
     .ads {
-      &__no-ad {
+      &__picture {
+        border-radius: 10 * @px;
+        width: 150 * @px !important;
+        height: 150 * @px !important;
+        border-radius: 10 * @px;
+        margin-right: 23 * @px;
+      }
+
+      &__description {
+        .description {
+          &__title {
+            margin-top: 15 * @px;
+          }
+
+          &__address {
+          }
+
+          &__button {
+            display: absolute;
+            top: 8 * @px;
+            margin-top: 15 * @px;
+          }
+        }
+      }
+    }
+  }
+
+  &__no-ad{
+    height: 160 * @px;
+    position: relative;
+    margin-bottom: 70 * @px;
+
+    .no-ad {
+      &__title {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -104,15 +135,14 @@
     }
   }
 
-  &__title-container{
-    display:flex;
+  &__title-container {
+    display: flex;
     justify-content: space-between;
     align-items: flex-end;
 
-    .title-container{
-
-      &__pageTitle{
-        margin-top: 25*@px;
+    .title-container {
+      &__pageTitle {
+        margin-top: 25 * @px;
       }
 
       //Bouton "Louer ma propriété"
@@ -123,13 +153,13 @@
 
         .rent {
           &__addIcon {
-            padding-top:2*@px;
+            padding-top: 2 * @px;
             width: 13 * @px;
             margin-right: 8 * @px;
           }
 
           &__searchIcon {
-            padding-top:2*@px;
+            padding-top: 2 * @px;
             width: 20 * @px;
             margin-right: 8 * @px;
           }
@@ -149,7 +179,7 @@
   &__bookings {
     height: 160 * @px;
     position: relative;
-    margin-bottom: 70*@px;
+    margin-bottom: 70 * @px;
 
     .bookings {
       &__no-booking {

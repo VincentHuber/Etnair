@@ -104,12 +104,10 @@ export default defineEventHandler(async (event) => {
     // Réponse structurée au client
     return {
       data: {
-        result:true,
-        id: newAd.id,
         title: newAd.title,
         city: newAd.city,
-        zipcode: newAd,
-        price: newAd.price,
+        zipcode: newAd.zipcode,
+        street_adress:newAd.street_adress,
         pictures: newAd.pictures,
       },
     };

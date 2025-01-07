@@ -25,9 +25,10 @@ const price = ref(null);
 const number_of_guests = ref(null);
 const number_of_rooms = ref(null);
 const size = ref(null);
-const bookable_dates = ref(null);
+const bookable_dates = ref([]);
 const pictures = ref([]);
 const features = ref([]);
+
 const isFeature = ref(false);
 
 //Ajoute la feature ou supprime si elle est déjà sélectionné
@@ -72,6 +73,45 @@ const formatTravelDays = (dates) => {
       .join(" - ");
   }
   return format(dates, "dd/MM/yyyy", { locale: fr });
+};
+
+
+//Crée une annonce
+const handleRenting = async () => {
+  //Crée l'objet à envoyer dans le back
+  const rentingData = {
+    title: title.value,
+    description: description.value,
+    street_adress: street_adress.value,
+    zipcode: Number(zipcode.value),
+    city: city.value,
+    price: Number(price.value),
+    number_of_guests: Number(number_of_guests.value),
+    number_of_rooms: Number(number_of_rooms.value),
+    size: Number(size.value),
+    bookable_dates: bookable_dates.value.map(date => date.toISOString()),
+    pictures: [...pictures.value],
+    features: [...features.value],
+  };
+
+  try {
+    const response = await $fetch("/api/ads", {
+      method: "POST",
+      body: rentingData,
+      headers: {
+        Authorization: `Bearer ${authStore.token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response?.data) {
+      authStore.updateNewAd(response.data)
+      navigateTo('/user')
+      
+    }
+  } catch (error) {
+    console.error("Erreur lors de la création de l'annonce", error);
+  }
 };
 
 onMounted(() => {
@@ -250,6 +290,8 @@ onMounted(() => {
       </div>
     </div>
 
-    <NuxtLink class="cta-primary rent__validate">Louer ma propriété</NuxtLink>
+    <NuxtLink class="cta-primary rent__validate" @click="handleRenting"
+      >Louer ma propriété</NuxtLink
+    >
   </div>
 </template>
