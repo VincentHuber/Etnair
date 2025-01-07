@@ -21,10 +21,11 @@
 
   &__infos,
   &__ads,
-  &__bookings {
+  &__bookings,
+  &__no-ad {
     padding: 23 * @px;
     background-color: @dark-grey;
-    border-radius: 10 * @px;
+    border-radius: 15 * @px;
     display: flex;
     flex-direction: row;
 
@@ -116,8 +117,16 @@
           }
         }
       }
+    }
+  }
 
-      &__no-ad {
+  &__no-ad{
+    height: 160 * @px;
+    position: relative;
+    margin-bottom: 70 * @px;
+
+    .no-ad {
+      &__title {
         position: absolute;
         top: 50%;
         left: 50%;

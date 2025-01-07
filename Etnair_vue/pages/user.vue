@@ -83,8 +83,8 @@ onMounted(() => {
       </NuxtLink>
     </div>
 
-    <div v-if="authStore.user.ads.length === 0" class="user__ads">
-      <p class="ads__no-ad">Aucune annonce</p>
+    <div v-if="authStore.user.ads.length === 0" class="user__no-ad">
+      <p class="no-ad__title">Aucune annonce</p>
     </div>
 
     <div v-else>
