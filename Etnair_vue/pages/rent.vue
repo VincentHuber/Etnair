@@ -75,6 +75,8 @@ const formatTravelDays = (dates) => {
   return format(dates, "dd/MM/yyyy", { locale: fr });
 };
 
+
+//Crée une annonce
 const handleRenting = async () => {
   //Crée l'objet à envoyer dans le back
   const rentingData = {
@@ -103,6 +105,7 @@ const handleRenting = async () => {
     });
 
     if (response?.data) {
+      authStore.updateNewAd(response.data)
       navigateTo('/user')
       
     }
