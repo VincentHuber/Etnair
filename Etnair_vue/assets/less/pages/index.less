@@ -1,20 +1,37 @@
-.content {
+@import url('keen-slider/keen-slider.css');
 
 
-  * {
-    grid-column: 3 / 11;
-  }
+.home {
+overflow-y: hidden;
 
-  @media @tablet {
-    & > * {
-      grid-column: 2 / 12;
+  &__result{
+    
+    display: flex;
+  align-items: center;
+  height: 85vh;
+    // border:solid 1px red;
+    .result{
+      &__container{
+        display: flex;
+        align-items: center;
+        // width: 100%;
+        // height: 100%;
+
+
+        .container{
+          &__loop{
+            overflow: visible;
+
+            .loop{
+              &__ad{
+                overflow: visible;
+
+
+              }
+            }
+          }
+        }
+      }
     }
   }
-
-  @media @mobile {
-    & > * {
-      grid-column: 1 / 7;
-    }
-  }
-
 }
