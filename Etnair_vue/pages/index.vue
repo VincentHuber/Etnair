@@ -1,14 +1,18 @@
 <script setup>
 import "../assets/less/pages/index.less";
-import { useKeenSlider } from "keen-slider/vue.es";
 import "keen-slider/keen-slider.min.css";
+import KeenSlider from "keen-slider";
 
+//Variable pour le slider
+const sliderKeen = ref(null);
+const container = ref(null);
 
 //Import des icons
-import ArrowLeft from '../assets/icons/arrowLeft.svg'
-import ArrowRight from '../assets/icons/arrowRight.svg'
+import ArrowLeft from "../assets/icons/arrowLeft.svg";
+import ArrowRight from "../assets/icons/arrowRight.svg";
 
-const isMobile = ref(null)
+//Vérifie si on est en mobile
+const isMobile = ref(null);
 
 const updateIsMobile = () => {
   isMobile.value = window.innerWidth < 1135;
@@ -17,42 +21,43 @@ const updateIsMobile = () => {
 //Détermine l'index de la slide
 const sliderCurrent = ref(0);
 
-//Fonction pour les datas de mon slider
-const updateArrow = (s) => {
-  sliderCurrent.value = s.track.details.rel;
+//Initialise le slide
+const initSlider = () => {
+  sliderKeen.value = new KeenSlider(container.value, {
+    loop: true,
+    mode: "free-snap",
+    slides: {
+      perView: 1.5,
+      spacing: 35,
+      origin: "center",
+    },
+    detailsChanged: (s) => {
+      sliderCurrent.value = s.track.details.rel;
+    },
+  });
 };
 
-// Déclare la référence du conteneur du slider
-const [container] = useKeenSlider({
-  loop: true,
-  mode: "free-snap",
-  slides: {
-    perView: 1.5,
-    spacing: 35,
-    origin: "center",
-  },
-  detailsChanged: updateArrow,
-});
+//Récupère toute les annonces
 const { data } = useFetch("/api/ads");
 
 // Va à là slide précédente
 const handlePrev = () => {
-  if (container) {
-    container.current.prev();
+  if (sliderKeen.value) {
+    sliderKeen.value.prev();
   }
 };
 
 // Va à la prochaine slide
 const handleNext = () => {
-  if (container) {
-    container.current.next();
+  if (sliderKeen.value) {
+    sliderKeen.value.next();
   }
 };
 
 onMounted(() => {
   console.log("data Ads : ", data.value);
-  updateIsMobile()
   window.addEventListener("resize", updateIsMobile);
+  initSlider();
 });
 
 onUnmounted(() => {
@@ -79,13 +84,13 @@ onUnmounted(() => {
     </div>
 
     <div v-if="!isMobile" class="home__arrows">
-        <button class="arrows__left" @click="handlePrev">
-          <ArrowLeft class="icon-arrow-left" />
-        </button>
-        <button class="arrows__right" @click="handleNext">
-          <ArrowRight class="icon-arrow-right" />
-        </button>
-      </div>
+      <button class="arrows__left" @click="handlePrev">
+        <ArrowLeft class="icon-arrow-left" />
+      </button>
+      <button class="arrows__right" @click="handleNext">
+        <ArrowRight class="icon-arrow-right" />
+      </button>
+    </div>
 
     <div v-if="data.allAds" class="home__result">
       <div ref="container" class="keen-slider result__container">
