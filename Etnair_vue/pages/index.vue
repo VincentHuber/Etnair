@@ -28,7 +28,7 @@ const initSlider = () => {
     mode: "free-snap",
     slides: {
       perView: 1.5,
-      spacing: 35,
+      spacing: 25,
       origin: "center",
     },
     detailsChanged: (s) => {
@@ -80,7 +80,18 @@ onUnmounted(() => {
           data.allAds[sliderCurrent].zipcode
         }})
       </p>
-      <NuxtLink class="cta-primary">Découvrir</NuxtLink>
+      <div>
+        <NuxtLink
+          class="cta-primary infos__buttonLeft "
+          :to="`/details/${data.allAds[sliderCurrent].id}`"
+          >En savoir plus</NuxtLink
+        >
+        <NuxtLink
+          class=" cta-primary-outline infos__buttonRight"
+          :to="`mailto:${data.allAds[sliderCurrent].renter.email}`"
+          >Contacter</NuxtLink
+        >
+      </div>
     </div>
 
     <div v-if="!isMobile" class="home__arrows">
@@ -98,6 +109,7 @@ onUnmounted(() => {
           v-for="(ad, key) in data.allAds"
           :key="key"
           class="keen-slider__slide container__loop"
+          :to="`/details/${ad.id}`"
           :style="{
             opacity: key === sliderCurrent ? 1 : 0.3,
             transition: 'opacity 0.5s ease',
