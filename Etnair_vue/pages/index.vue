@@ -11,6 +11,9 @@ const container = ref(null);
 import ArrowLeft from "../assets/icons/arrowLeft.svg";
 import ArrowRight from "../assets/icons/arrowRight.svg";
 
+//Récupère toute les annonces
+const { data } = useFetch("/api/ads");
+
 //Vérifie si on est en mobile
 const isMobile = ref(null);
 
@@ -37,9 +40,6 @@ const initSlider = () => {
   });
 };
 
-//Récupère toute les annonces
-const { data } = useFetch("/api/ads");
-
 // Va à là slide précédente
 const handlePrev = () => {
   if (sliderKeen.value) {
@@ -55,10 +55,12 @@ const handleNext = () => {
 };
 
 onMounted(() => {
-  console.log("data Ads : ", data.value);
+  if (container.value) {
+    initSlider();
+  }
   window.addEventListener("resize", updateIsMobile);
-  initSlider();
 });
+
 
 onUnmounted(() => {
   window.removeEventListener("resize", updateIsMobile);
@@ -67,7 +69,7 @@ onUnmounted(() => {
 
 <template>
   <div class="home">
-    <div class="home__infos">
+    <div v-if="data && data.allAds" class="home__infos">
       <p class="infos__price">
         {{ data.allAds[sliderCurrent].price }}€<span>/nuit</span>
       </p>
