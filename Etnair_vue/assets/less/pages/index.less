@@ -1,32 +1,55 @@
-@import url('keen-slider/keen-slider.css');
-
+@import url("keen-slider/keen-slider.css");
 
 .home {
-overflow-y: hidden;
+  overflow-y: hidden;
+  position: relative;
 
-  &__result{
-    
+  &__infos {
+    position: absolute;
+    z-index: 999;
+    bottom: 30 * @px;
+    left: 100 * @px;
+
+    .infos {
+      &__price {
+        font-size: 120 * @px;
+        font-weight: @semibold;
+        margin-bottom: 20 * @px;
+        span {
+          font-size: 50 * @px;
+        }
+      }
+      &__details {
+        bottom: 10 * @px;
+        font-weight: @medium;
+        margin-bottom: 15* @px;
+        font-size:17*@px;
+        letter-spacing: 0.5*@px;
+
+        sup {
+          font-size: 10 * @px;
+        }
+      }
+    }
+  }
+
+  &__result {
     display: flex;
-  align-items: center;
-  height: 85vh;
-    // border:solid 1px red;
-    .result{
-      &__container{
+    align-items: center;
+    height: 85vh;
+
+    .result {
+      &__container {
         display: flex;
         align-items: center;
-        // width: 100%;
-        // height: 100%;
 
-
-        .container{
-          &__loop{
+        .container {
+          &__loop {
             overflow: visible;
 
-            .loop{
-              &__ad{
+            .loop {
+              &__ad {
                 overflow: visible;
-
-
               }
             }
           }
