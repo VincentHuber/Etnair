@@ -48,7 +48,6 @@ const erasePicture = (undesiredPicture) => {
     pictures.value = pictures.value.filter(
       (picture) => picture != undesiredPicture
     );
-    console.log("pictures.value : ", pictures.value);
   }
 };
 
