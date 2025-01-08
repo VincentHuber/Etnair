@@ -3,6 +3,17 @@ import "../assets/less/pages/index.less";
 import { useKeenSlider } from "keen-slider/vue.es";
 import "keen-slider/keen-slider.min.css";
 
+
+//Import des icons
+import ArrowLeft from '../assets/icons/arrowLeft.svg'
+import ArrowRight from '../assets/icons/arrowRight.svg'
+
+const isMobile = ref(null)
+
+const updateIsMobile = () => {
+  isMobile.value = window.innerWidth < 1135;
+};
+
 //Détermine l'index de la slide
 const sliderCurrent = ref(0);
 
@@ -24,8 +35,28 @@ const [container] = useKeenSlider({
 });
 const { data } = useFetch("/api/ads");
 
+// Va à là slide précédente
+const handlePrev = () => {
+  if (container) {
+    container.current.prev();
+  }
+};
+
+// Va à la prochaine slide
+const handleNext = () => {
+  if (container) {
+    container.current.next();
+  }
+};
+
 onMounted(() => {
   console.log("data Ads : ", data.value);
+  updateIsMobile()
+  window.addEventListener("resize", updateIsMobile);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateIsMobile);
 });
 </script>
 
@@ -46,6 +77,15 @@ onMounted(() => {
       </p>
       <NuxtLink class="cta-primary">Découvrir</NuxtLink>
     </div>
+
+    <div v-if="!isMobile" class="home__arrows">
+        <button class="arrows__left" @click="handlePrev">
+          <ArrowLeft class="icon-arrow-left" />
+        </button>
+        <button class="arrows__right" @click="handleNext">
+          <ArrowRight class="icon-arrow-right" />
+        </button>
+      </div>
 
     <div v-if="data.allAds" class="home__result">
       <div ref="container" class="keen-slider result__container">
