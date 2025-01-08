@@ -17,7 +17,7 @@ const props = defineProps({
     :src="pictures[0]"
     alt="Photos de la propriété"
     height="1000"
+    width="2000"
     />
-  
   </div>
 </template>
