@@ -5,10 +5,9 @@ export const useAuthStore = defineStore("auth", {
     user: null as object | null,
   }),
 
-  persist:true,
+  persist: true,
 
   actions: {
-
     //Enregistre un token
     setToken(newToken: string) {
       this.token = newToken;
@@ -28,8 +27,13 @@ export const useAuthStore = defineStore("auth", {
     clearUser() {
       this.user = null;
     },
+
+    //Met à jour les annonces de l'user
+    updateNewAd(newAd: object) {
+      this.user.ads.push(newAd);
+    },
   },
-  
+
   //Vérifie si un user est connecté
   getters: {
     isAuthenticated: (state) => !!state.token,

@@ -13,7 +13,7 @@ const authStore = useAuthStore();
 //Import des icons
 import addIcon from "../../assets/icons/add.svg";
 import UploadIcon from "../../../assets/icons/upload.svg";
-import ValidateIcon from "../../../assets/icons/validate.svg";
+import { featuresInfos } from "@/utils/featuresInfos";
 
 //Variable des inputs
 const title = ref(null);
@@ -25,13 +25,36 @@ const price = ref(null);
 const number_of_guests = ref(null);
 const number_of_rooms = ref(null);
 const size = ref(null);
-const bookable_dates = ref(null);
-const pictures = ref(null);
+const bookable_dates = ref([]);
+const pictures = ref([]);
 const features = ref([]);
+
+const isFeature = ref(false);
+
+//Ajoute la feature ou supprime si elle est déjà sélectionné
+const addFeature = (newFeature) => {
+  if (features.value.includes(newFeature)) {
+    features.value = features.value.filter((feature) => feature != newFeature);
+    isFeature.value = false;
+  } else {
+    features.value.push(newFeature);
+    isFeature.value = true;
+  }
+};
+
+//Efface la photo
+const erasePicture = (undesiredPicture) => {
+  if (pictures.value.includes(undesiredPicture)) {
+    pictures.value = pictures.value.filter(
+      (picture) => picture != undesiredPicture
+    );
+  }
+};
 
 // Enregistre le lien de l'image uploadée
 const uploadPicture = (event) => {
-  pictures.value = event.info.secure_url;
+  const imageUrl = event?.info?.secure_url;
+  imageUrl && pictures.value.push(imageUrl);
 };
 
 // Fonction pour vérifier l'accès à la page
@@ -49,6 +72,47 @@ const formatTravelDays = (dates) => {
       .join(" - ");
   }
   return format(dates, "dd/MM/yyyy", { locale: fr });
+};
+
+
+//Crée une annonce
+const handleRenting = async () => {
+  //Crée l'objet à envoyer dans le back
+  const rentingData = {
+    title: title.value,
+    description: description.value,
+    street_adress: street_adress.value,
+    zipcode: Number(zipcode.value),
+    city: city.value,
+    price: Number(price.value),
+    number_of_guests: Number(number_of_guests.value),
+    number_of_rooms: Number(number_of_rooms.value),
+    size: Number(size.value),
+    bookable_dates: bookable_dates.value.map(date => date.toISOString()),
+    pictures: [...pictures.value],
+    features: [...features.value],
+  };
+
+  //Crée une annonce dans le back
+  try {
+    const response = await $fetch("/api/ads", {
+      method: "POST",
+      body: rentingData,
+      headers: {
+        Authorization: `Bearer ${authStore.token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    // Met à jour le store avec l'annonce et renvoie à la page de profil
+    if (response?.data) {
+      authStore.updateNewAd(response.data)
+      navigateTo('/user')
+      
+    }
+  } catch (error) {
+    console.error("Erreur lors de la création de l'annonce", error);
+  }
 };
 
 onMounted(() => {
@@ -153,24 +217,26 @@ onMounted(() => {
       <h4 class="ad-price-container__title">
         Début et fin de la disponibilité
       </h4>
-      <Datepicker
-        class="ad-bookables-container__bookables"
-        v-model="bookable_dates"
-        :enable-time-picker="false"
-        :format="formatTravelDays"
-        :format-locale="fr"
-        select-text="Sélectionner"
-        cancel-text="Fermer"
-        range
-      />
-      <button class="ad-bookables-container__button">
-        <addIcon class="button__addIcon" />
-      </button>
+      <div class="ad-bookables-container__content">
+        <Datepicker
+          class="content__bookables"
+          v-model="bookable_dates"
+          :enable-time-picker="false"
+          :format="formatTravelDays"
+          :format-locale="fr"
+          select-text="Sélectionner"
+          cancel-text="Fermer"
+          range
+        />
+        <button class="content__button">
+          <addIcon class="button__addIcon" />
+        </button>
+      </div>
     </div>
 
     <!-- Input des photos -->
     <div class="rent__ad-picture-container">
-      <h4 class="ad-picture-container__title">Photo de votre bien</h4>
+      <h4 class="ad-picture-container__title">Photos de votre propriété</h4>
       <CldUploadWidget
         v-slot="{ open }"
         uploadPreset="etnair_preset"
@@ -178,32 +244,55 @@ onMounted(() => {
         @success="uploadPicture"
       >
         <button
-          v-if="!pictures"
           type="button"
           class="ad-picture-container__upload"
           @click="open"
         >
-          Télécharger une photo de profil
+          Télécharger des photos
           <UploadIcon class="upload__uploadIcon" />
         </button>
-        <button
-          v-else
-          type="button"
-          class="ad-picture-container__upload"
-          @click="open"
-        >
-          Photo de profil téléchargée
-          <ValidateIcon class="upload__validateIcon" />
-        </button>
       </CldUploadWidget>
-      <p>En JPG ou PNG uniquement.</p>
+      <p class="ad-picture-container__details">En JPG ou PNG uniquement.</p>
+    </div>
+
+    <!-- Affiche les photos -->
+    <div class="rent__pictures">
+      <div v-for="(picture, index) in pictures" class="pictures__container">
+        <CldImage
+          :key="index"
+          :src="picture"
+          alt="Photos de la propriété"
+          class="container__item"
+        />
+        <button
+          class="cta-secondary container__button"
+          @click="erasePicture(picture)"
+        >
+          Supprimer
+        </button>
+      </div>
     </div>
 
     <!-- Input des features -->
-    <div class="rent__ad-price-container">
-      <h4 class="ad-price-container__title">Spécificités</h4>
+    <div class="rent__ad-features-container">
+      <h4 class="ad-features-container__title">Spécificités</h4>
+
+      <div class="ad-features-container__content">
+        <button
+          v-for="feature in featuresInfos"
+          :key="feature.id"
+          class="content__features"
+          @click="addFeature(feature.text)"
+          :class="{ 'is-active': features.includes(feature.text) }"
+        >
+          <component :is="feature.icon" class="features__icon" />
+          <span class="features__text">{{ feature.text }}</span>
+        </button>
+      </div>
     </div>
 
-    <NuxtLink class="cta-primary">Louer ma propriété</NuxtLink>
+    <NuxtLink class="cta-primary rent__validate" @click="handleRenting"
+      >Louer ma propriété</NuxtLink
+    >
   </div>
 </template>
