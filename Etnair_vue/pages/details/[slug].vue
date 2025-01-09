@@ -9,6 +9,7 @@ import "@vuepic/vue-datepicker/dist/main.css";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 const formattedDates = ref([]);
+const nightNumber = ref(null)
 
 //Variables pour récupérer l'annonce
 const data = ref(null);
@@ -17,6 +18,17 @@ const route = useRoute();
 //Inputs
 const travelDays = ref(null);
 const hosts = ref(null);
+
+//Formate la date
+const formatTravelDays = (dates) => {
+  if (Array.isArray(dates)) {
+    return dates
+      .map((date) => format(date, "dd/MM/yyyy", { locale: fr }))
+      .join(" - ");
+  }
+  return format(dates, "dd/MM/yyyy", { locale: fr });
+};
+
 
 //Variable pour le slider
 const sliderKeen = ref(null);
@@ -55,9 +67,21 @@ const fetchData = async () => {
   }
 };
 
+//Calcul du nombre de nuits
+watch(travelDays, (newValue) => {
+ 
+    const startDate = newValue[0];
+    const endDate = newValue[1];
+
+    // Calcul de la différence en millisecondes
+    const diffInMilliseconds = endDate - startDate;
+
+    // Conversion en jours
+    nightNumber.value = diffInMilliseconds / (1000 * 60 * 60 * 24);
+});
+
 onMounted(() => {
   fetchData();
-
   //if (container.value) {
     //initSlider();
   //}
@@ -150,10 +174,10 @@ onMounted(() => {
     <!-- Prix nuité -->
     <div class="ad__nightCalculation">
       <p class="nightCalculation__perNight">
-        {{ data.ad.price }} x {{ hosts || 4 }} nuits
+        {{ data.ad.price }} x {{ nightNumber || 4 }} nuits
       </p>
       <p class="nightCalculation__totalPerNight">
-        {{ data.ad.price * (hosts || 4) }}€
+        {{ data.ad.price * (nightNumber || 4) }}€
       </p>
     </div>
 
@@ -161,7 +185,7 @@ onMounted(() => {
     <div class="ad__feeCalculation">
       <p class="ad__feeText">Frais de service Etnair</p>
       <p class="ad__feePerTrip">
-        {{ (data.ad.price * (hosts || 4) * 10) / 100 }}€
+        {{ (data.ad.price * (nightNumber || 4) * 10) / 100 }}€
       </p>
     </div>
     <div class="ad__split" />
@@ -171,8 +195,8 @@ onMounted(() => {
       <p class="ad__totalText">Total</p>
       <p class="ad__totalPerTrip">
         {{
-          (data.ad.price * (hosts || 4) * 10) / 100 +
-          data.ad.price * (hosts || 4)
+          (data.ad.price * (nightNumber || 4) * 10) / 100 +
+          data.ad.price * (nightNumber || 4)
         }}€
       </p>
     </div>
@@ -181,8 +205,6 @@ onMounted(() => {
     <NuxtLink class="cta-primary ad__bookingButton"
       >Réserver votre séjour</NuxtLink
     >
-
-
     <div class="ad__space"/>
   </div>
 </template>
