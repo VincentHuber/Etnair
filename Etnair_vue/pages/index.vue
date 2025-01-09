@@ -91,7 +91,7 @@ onUnmounted(() => {
         <NuxtLink
           class=" cta-primary-outline infos__buttonRight"
           :to="`mailto:${data.allAds[sliderCurrent].renter.email}`"
-          >Contacter</NuxtLink
+          >Contacter l'hôte</NuxtLink
         >
       </div>
     </div>
