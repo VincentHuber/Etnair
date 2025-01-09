@@ -75,10 +75,34 @@
     justify-content: center;
   }
 
-  // Keen-slider
-  &__adContainer {
-    width:300px;
-    border: solid 1px red;
+  &__parent {
+    @media @not-mobile {
+      grid-column: 1/13;
+    }
+
+    cursor: pointer;
+    margin-left:calc(var(--padding-x) * -1);
+    margin-right:calc(var(--padding-x) * -1);
+    width:calc(100% + (var(--padding-x) * 2));
+    overflow: hidden !important ;
+    display: flex;
+    padding-left:var(--padding-x);
+    padding-right:20*@px;
+    justify-content: center;
+    height: 250 * @px !important;
+    margin-bottom: 25 * @px;
+
+    .parent {
+      &__adContainer {
+        overflow: initial !important;
+
+        .adContainer {
+          &__loop {
+            border-radius: 7 * @px;
+          }
+        }
+      }
+    }
   }
 
   //Disponibilité
@@ -107,58 +131,104 @@
     display: flex;
     height: 60 * @px;
     border: solid 1 * @px @white;
-    background-color: black;
     border-radius: @border-radius;
     margin-top: -10 * @px;
-    margin-bottom: 5*@px;
+    margin-bottom: 5 * @px;
 
-    .adInputs {
-      &__travelDays {
-        background-color: black;
-        width: 50%;
+    .dp__main {
+      ::placeholder {
+        color: white;
+        opacity: 1;
       }
+    }
+    .adInputs {
+      background-color: transparent !important;
+
+      &__travelDays {
+        background-color: transparent !important;
+        width: 50%;
+
+        .dp__input {
+          background-color: transparent;
+          border: none;
+          height: 60 * @px;
+          text-align: center;
+          font-family: @font-sans-serif;
+          font-weight: @light !important;
+          color: @white;
+        }
+
+        //Disparition des icôns réinitialiser et calendrier
+        .dp--clear-btn,
+        .dp__input_icon {
+          display: none;
+        }
+
+        .dp__theme_light {
+          --dp-primary-color: @dark-grey;
+          --dp-range-between-dates-background-color: @dark-grey;
+          --dp-range-between-border-color: @dark-grey;
+          --dp-hover-text-color: @dark-grey;
+          --dp-range-between-dates-text-color: @white;
+        }
+        .ad__adInputs .adInputs__hosts {
+          background-color: transparent !important;
+        }
+      }
+
       &__hosts {
         width: 50%;
-        background-color: black;
+        background-color: transparent;
         border: none;
+        color: @white;
+        text-align: center;
         border-left: solid 1 * @px @white;
 
         &::placeholder {
           text-align: center;
+          color: @white;
+          background-color: transparent !important;
         }
       }
     }
   }
 
-  &__split{
+  &__split {
     @media @not-tablet {
       grid-column: 4 / 10;
     }
-    margin-top:7*@px;
-    border-bottom:solid 1px @white;
+    margin-top: 7 * @px;
+    border-bottom: solid 1px @white;
     width: 100%;
   }
 
-  &__nightCalculation, &__feeCalculation, &__totalCalculation{
+  &__nightCalculation,
+  &__feeCalculation,
+  &__totalCalculation {
     @media @not-tablet {
       grid-column: 4 / 10;
     }
-    display:flex;
+    display: flex;
     justify-content: space-between;
-    margin-bottom: -7*@px;
+    margin-bottom: -7 * @px;
+  }
+
+  &__totalCalculation {
+    padding-bottom: 20 * @px;
+    border-bottom: solid 1 * @px @white;
   }
 
   &__bookingButton {
     @media @not-tablet {
       grid-column: 4 / 10;
     }
-    margin-top: 20*@px;
-    margin-bottom: 60*@px !important;
+    margin-top: 40 * @px;
+    margin-bottom: 30 * @px !important;
 
-    justify-self: center;  
-    // padding-top: 10 * @px !important;
-    // padding-bottom: 10 * @px !important;
-    // // font-size: 16 * @px;
-    // text-align: center;
+    justify-self: center;
+  }
+
+  &__space {
+    height: 10 * @px;
   }
 }
