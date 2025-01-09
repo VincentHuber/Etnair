@@ -22,7 +22,7 @@ const hosts = ref(null);
 const sliderKeen = ref(null);
 const container = ref(null);
 
-// Initialisation du slider après le chargement des données
+// Initialisation du slider
 // const initSlider = () => {
 //   if (container.value && data.value?.ad?.pictures) {
 //     sliderKeen.value = new KeenSlider(container.value, {
@@ -55,13 +55,12 @@ const fetchData = async () => {
   }
 };
 
-// Le slug est accessible uniquement quand le DOM est monté
 onMounted(() => {
   fetchData();
 
-  if (container.value) {
-    initSlider();
-  }
+  //if (container.value) {
+    //initSlider();
+  //}
 });
 </script>
 
@@ -182,5 +181,8 @@ onMounted(() => {
     <NuxtLink class="cta-primary ad__bookingButton"
       >Réserver votre séjour</NuxtLink
     >
+
+
+    <div class="ad__space"/>
   </div>
 </template>
