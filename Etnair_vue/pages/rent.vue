@@ -48,7 +48,6 @@ const erasePicture = (undesiredPicture) => {
     pictures.value = pictures.value.filter(
       (picture) => picture != undesiredPicture
     );
-    console.log("pictures.value : ", pictures.value);
   }
 };
 
@@ -94,6 +93,7 @@ const handleRenting = async () => {
     features: [...features.value],
   };
 
+  //Crée une annonce dans le back
   try {
     const response = await $fetch("/api/ads", {
       method: "POST",
@@ -104,6 +104,7 @@ const handleRenting = async () => {
       },
     });
 
+    // Met à jour le store avec l'annonce et renvoie à la page de profil
     if (response?.data) {
       authStore.updateNewAd(response.data)
       navigateTo('/user')

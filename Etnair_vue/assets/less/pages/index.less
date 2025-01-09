@@ -1,20 +1,90 @@
-.content {
+@import url("keen-slider/keen-slider.css");
 
+.home {
+  overflow-y: hidden;
+  position: relative;
 
-  * {
-    grid-column: 3 / 11;
-  }
+  &__infos {
+    position: absolute;
+    z-index: 999;
+    bottom: 30 * @px;
+    left: 100 * @px;
 
-  @media @tablet {
-    & > * {
-      grid-column: 2 / 12;
+    .infos {
+      &__price {
+        font-size: 120 * @px;
+        font-weight: @semibold;
+        margin-bottom: 20 * @px;
+
+        span {
+          font-size: 50 * @px;
+        }
+      }
+      &__details {
+        bottom: 10 * @px;
+        font-weight: @medium;
+        margin-bottom: 15* @px;
+        font-size:17*@px;
+        letter-spacing: 0.5*@px;
+
+        sup {
+          font-size: 11 * @px;
+        }
+      }
+      &__buttonLeft{
+        font-size: 15*@px;
+        margin-right:15*@px;
+      }
+      &__buttonRight{
+        font-size: 15*@px;
+      }
+
     }
   }
 
-  @media @mobile {
-    & > * {
-      grid-column: 1 / 7;
+  &__arrows{
+    position: absolute;
+    z-index:999;
+    right:100*@px;
+    bottom:30*@px;
+    
+    .arrows{
+      
+      &__right, &__left{
+        cursor: pointer;
+        width:90*@px;
+        background-color: transparent;
+        border:none;
+      }
+      &__left{
+        margin-right:10*@px;
+      }
+    
     }
   }
 
+  &__result {
+    display: flex;
+    align-items: center;
+    height: 85vh;
+
+    .result {
+      &__container {
+        display: flex;
+        align-items: center;
+
+        .container {
+          &__loop {
+            overflow: visible;
+
+            .loop {
+              &__ad {
+                overflow: visible;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
