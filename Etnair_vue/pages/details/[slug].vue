@@ -9,6 +9,7 @@ import "@vuepic/vue-datepicker/dist/main.css";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 const formattedDates = ref([]);
+const nightNumber = ref(null);
 
 //Variables pour récupérer l'annonce
 const data = ref(null);
@@ -21,21 +22,6 @@ const hosts = ref(null);
 //Variable pour le slider
 const sliderKeen = ref(null);
 const container = ref(null);
-
-// Initialisation du slider après le chargement des données
-// const initSlider = () => {
-//   if (container.value && data.value?.ad?.pictures) {
-//     sliderKeen.value = new KeenSlider(container.value, {
-//       loop: true,
-//       mode: "free-snap",
-//       slides: {
-//         perView: 4,
-//         spacing: 25,
-//         origin: "center",
-//       },
-//     });
-//   }
-// };
 
 // Récupère l'annonce
 const fetchData = async () => {
@@ -55,13 +41,48 @@ const fetchData = async () => {
   }
 };
 
-// Le slug est accessible uniquement quand le DOM est monté
-onMounted(() => {
-  fetchData();
-
-  if (container.value) {
-    initSlider();
+//Formate la date
+const formatTravelDays = (dates) => {
+  if (Array.isArray(dates)) {
+    return dates
+      .map((date) => format(date, "dd/MM/yyyy", { locale: fr }))
+      .join(" - ");
   }
+  return format(dates, "dd/MM/yyyy", { locale: fr });
+};
+
+// Initialisation du slider
+const initSlider = () => {
+  if (container.value && data.value?.ad?.pictures) {
+    sliderKeen.value = new KeenSlider(container.value, {
+      loop: false,
+      mode: "free-snap",
+      slides: {
+        rubberband: false,
+        rtl: false,
+        perView: 3.5,
+        spacing: 15,
+        origin: "auto",
+      },
+    });
+  }
+};
+
+//Calcul du nombre de nuits
+watch(travelDays, (newValue) => {
+  const startDate = newValue[0];
+  const endDate = newValue[1];
+
+  // Calcul de la différence en millisecondes
+  const diffInMilliseconds = endDate - startDate;
+
+  // Conversion en jours
+  nightNumber.value = diffInMilliseconds / (1000 * 60 * 60 * 24);
+});
+
+onMounted(async () => {
+  await fetchData();
+  initSlider();
 });
 </script>
 
@@ -106,17 +127,19 @@ onMounted(() => {
     </div>
 
     <!-- Keen Slider -->
-    <!-- <div ref="container" class="keen-slider ad__adContainer">
-      <CldImage
-        v-for="(ad, key) in data.ad.pictures.slice(1)"
-        :key="key"
-        class="keen-slider__slide adContainer__loop"
-        :src="ad"
-        alt="Photos de la propriété"
-        height="400"
-        width="800"
-      />
-    </div> -->
+    <div class="ad__parent">
+      <div ref="container" class="keen-slider parent__adContainer">
+        <CldImage
+          v-for="(ad, key) in data.ad.pictures.slice(1)"
+          :key="key"
+          class="keen-slider__slide adContainer__loop"
+          :src="ad"
+          alt="Photos de la propriété"
+          height="800"
+          width="1200"
+        />
+      </div>
+    </div>
 
     <!-- Disponiblité -->
     <div class="ad__bookablesDates" v-if="formattedDates.length === 2">
@@ -151,10 +174,10 @@ onMounted(() => {
     <!-- Prix nuité -->
     <div class="ad__nightCalculation">
       <p class="nightCalculation__perNight">
-        {{ data.ad.price }} x {{ hosts || 4 }} nuits
+        {{ data.ad.price }} x {{ nightNumber || 4 }} nuits
       </p>
       <p class="nightCalculation__totalPerNight">
-        {{ data.ad.price * (hosts || 4) }}€
+        {{ data.ad.price * (nightNumber || 4) }}€
       </p>
     </div>
 
@@ -162,7 +185,7 @@ onMounted(() => {
     <div class="ad__feeCalculation">
       <p class="ad__feeText">Frais de service Etnair</p>
       <p class="ad__feePerTrip">
-        {{ (data.ad.price * (hosts || 4) * 10) / 100 }}€
+        {{ (data.ad.price * (nightNumber || 4) * 10) / 100 }}€
       </p>
     </div>
     <div class="ad__split" />
@@ -172,8 +195,8 @@ onMounted(() => {
       <p class="ad__totalText">Total</p>
       <p class="ad__totalPerTrip">
         {{
-          (data.ad.price * (hosts || 4) * 10) / 100 +
-          data.ad.price * (hosts || 4)
+          (data.ad.price * (nightNumber || 4) * 10) / 100 +
+          data.ad.price * (nightNumber || 4)
         }}€
       </p>
     </div>
@@ -182,5 +205,6 @@ onMounted(() => {
     <NuxtLink class="cta-primary ad__bookingButton"
       >Réserver votre séjour</NuxtLink
     >
+    <div class="ad__space" />
   </div>
 </template>
