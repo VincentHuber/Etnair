@@ -35,19 +35,21 @@ const sliderKeen = ref(null);
 const container = ref(null);
 
 // Initialisation du slider
-// const initSlider = () => {
-//   if (container.value && data.value?.ad?.pictures) {
-//     sliderKeen.value = new KeenSlider(container.value, {
-//       loop: true,
-//       mode: "free-snap",
-//       slides: {
-//         perView: 4,
-//         spacing: 25,
-//         origin: "center",
-//       },
-//     });
-//   }
-// };
+const initSlider = () => {
+  if (container.value && data.value?.ad?.pictures) {
+    sliderKeen.value = new KeenSlider(container.value, {
+      loop: false,
+      mode: "free-snap",
+      slides: {
+        rubberband: false,
+        rtl: false,
+        perView: 3.5,
+        spacing: 15,
+        origin: "auto",
+      },
+    });
+  }
+};
 
 // Récupère l'annonce
 const fetchData = async () => {
@@ -80,11 +82,9 @@ watch(travelDays, (newValue) => {
     nightNumber.value = diffInMilliseconds / (1000 * 60 * 60 * 24);
 });
 
-onMounted(() => {
-  fetchData();
-  //if (container.value) {
-    //initSlider();
-  //}
+onMounted(async () => {
+  await fetchData();
+  initSlider();
 });
 </script>
 
@@ -129,17 +129,20 @@ onMounted(() => {
     </div>
 
     <!-- Keen Slider -->
-    <!-- <div ref="container" class="keen-slider ad__adContainer">
-      <CldImage
-        v-for="(ad, key) in data.ad.pictures.slice(1)"
-        :key="key"
-        class="keen-slider__slide adContainer__loop"
-        :src="ad"
-        alt="Photos de la propriété"
-        height="400"
-        width="800"
-      />
-    </div> -->
+    <div class="ad__parent">
+      <div ref="container" class="keen-slider parent__adContainer">
+        <CldImage
+          v-for="(ad, key) in data.ad.pictures.slice(1)"
+          :key="key"
+          class="keen-slider__slide adContainer__loop"
+          :src="ad"
+          alt="Photos de la propriété"
+          height="800"
+          width="1200"
+        />
+      </div>
+
+    </div>
 
     <!-- Disponiblité -->
     <div class="ad__bookablesDates" v-if="formattedDates.length === 2">

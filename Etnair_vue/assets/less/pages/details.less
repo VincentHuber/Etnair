@@ -75,10 +75,34 @@
     justify-content: center;
   }
 
-  // Keen-slider
-  &__adContainer {
-    width: 300px;
-    border: solid 1px red;
+  &__parent {
+    @media @not-mobile {
+      grid-column: 1/13;
+    }
+
+    cursor: pointer;
+    margin-left:calc(var(--padding-x) * -1);
+    margin-right:calc(var(--padding-x) * -1);
+    width:calc(100% + (var(--padding-x) * 2));
+    overflow: hidden !important ;
+    display: flex;
+    padding-left:var(--padding-x);
+    padding-right:20*@px;
+    justify-content: center;
+    height: 250 * @px !important;
+    margin-bottom: 25 * @px;
+
+    .parent {
+      &__adContainer {
+        overflow: initial !important;
+
+        .adContainer {
+          &__loop {
+            border-radius: 7 * @px;
+          }
+        }
+      }
+    }
   }
 
   //Disponibilité
